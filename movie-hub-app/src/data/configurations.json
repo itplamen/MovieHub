@@ -1,0 +1,7 @@
+{
+  "apiKey": "API_KEY_HERE",
+  "apiBaseUrl": "https://api.themoviedb.org/3/",
+  "imgBaseUrl": "http://image.tmdb.org/t/p/w500/",
+  "trendingMoviesUrl": "/trending/movie/week?language=en-US",
+  "trendingTvUrl": "/trending/tv/week?language=en-US"
+}
