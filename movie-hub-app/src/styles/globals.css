@@ -38,6 +38,8 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --shadow: 0 10px 15px rgba(0, 0, 0, 0.623), 0 4px 6px rgba(0, 0, 0, 0.59);
 }
 
 @media (prefers-color-scheme: dark) {
