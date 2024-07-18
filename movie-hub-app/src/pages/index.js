@@ -13,15 +13,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <MovieCardList
-        url={config.trendingMoviesUrl}
-        description={"Trending Movies"}
-      />
-
-      <MovieCardList
-        url={config.trendingTvUrl}
-        description={"Trending TV Shows"}
-      />
+      {config.trendings.map((x) => (
+        <MovieCardList key={x.type} {...x} />
+      ))}
     </>
   );
 }
