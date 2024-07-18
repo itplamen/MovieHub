@@ -4,7 +4,6 @@
   overflow: hidden;
   border-radius: var(--border-radius);
   transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
-  position: relative;
   margin-bottom: 10px;
 }
 .card:hover {

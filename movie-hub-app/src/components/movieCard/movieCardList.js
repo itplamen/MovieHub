@@ -1,4 +1,4 @@
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import constants from "@/data/constants.json";
 import useFetch from "@/hooks/useFetch";
 import MovieCard from "./movieCard";
@@ -10,6 +10,7 @@ const MovieCardList = ({ url, description }) => {
   return (
     <Container>
       <Header text={description} />
+
       <Row>
         {movies.slice(0, constants.TRENDING_MOVIES_COUNT).map((x) => (
           <Col key={x.id} xs={12} sm={6} md={4} lg={3} xl={2}>
@@ -17,6 +18,9 @@ const MovieCardList = ({ url, description }) => {
           </Col>
         ))}
       </Row>
+      <div className="d-flex justify-content-center">
+        <Button variant="outline-dark">Show All</Button>
+      </div>
     </Container>
   );
 };
