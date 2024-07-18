@@ -4,15 +4,22 @@ import constants from "@/data/constants.json";
 import useFetch from "@/hooks/useFetch";
 import MovieCard from "./movieCard";
 import Header from "../header/header";
+import { useEffect, useRef, useState } from "react";
 
 const MovieCardList = ({ type, description, url }) => {
+  const [page, setPage] = useState(1);
   const { data: movies, refetch } = useFetch(url);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
+  const isMounted = useRef(false);
 
-  const goToPage = () => {
-    router.push(`/${type}`);
-  };
+  useEffect(() => {
+    if (isMounted.current) {
+      refetch(url, page);
+    } else {
+      isMounted.current = true;
+    }
+  }, [page]);
 
   return (
     <Container>
@@ -28,11 +35,17 @@ const MovieCardList = ({ type, description, url }) => {
       </Row>
       <div className="d-flex justify-content-center">
         {isHomePage ? (
-          <Button variant="outline-dark" onClick={() => goToPage()}>
+          <Button
+            variant="outline-dark"
+            onClick={() => router.push(`/${type}`)}
+          >
             Show All
           </Button>
         ) : (
-          <Button variant="outline-dark" onClick={() => refetch(url)}>
+          <Button
+            variant="outline-dark"
+            onClick={() => setPage((prev) => prev + 1)}
+          >
             Load More
           </Button>
         )}

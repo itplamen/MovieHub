@@ -4,8 +4,11 @@ import config from "@/data/configurations.json";
 const useFetch = (url) => {
   const [data, setData] = useState([]);
 
-  const fetchData = async (dataUrl) => {
-    const response = await fetch(`${config.apiBaseUrl}/${dataUrl}`, {
+  const fetchData = async (dataUrl, pageNumber) => {
+    const fullUrl = `${config.apiBaseUrl}/${dataUrl}${
+      pageNumber ? `?page=${pageNumber}` : ""
+    }`;
+    const response = await fetch(fullUrl, {
       method: "GET",
       headers: {
         accept: "application/json",
@@ -23,8 +26,8 @@ const useFetch = (url) => {
     fetchData(url);
   }, [url]);
 
-  const refetch = (url) => {
-    fetchData(url);
+  const refetch = (url, page) => {
+    fetchData(url, page);
   };
 
   return { data, refetch };
