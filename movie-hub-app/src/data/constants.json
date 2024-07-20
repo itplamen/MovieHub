@@ -1,3 +1,7 @@
 {
-  "TRENDING_MOVIES_COUNT": 12
+  "TRENDING_MOVIES_COUNT": 12,
+  "MOVIES_LIST_PAGE_NUMBER": {
+    "MIN": 1,
+    "MAX": 50
+  }
 }

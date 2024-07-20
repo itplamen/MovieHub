@@ -1,36 +1,27 @@
-import { useEffect, useState } from "react";
 import config from "@/data/configurations.json";
 
 const useFetch = (url) => {
-  const [data, setData] = useState([]);
+  const fetchData = async () => {
+    try {
+      if (url) {
+        const response = await fetch(`${config.apiBaseUrl}/${url}`, {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${config.apiKey}`,
+          },
+        });
 
-  const fetchData = async (dataUrl, pageNumber) => {
-    const fullUrl = `${config.apiBaseUrl}/${dataUrl}${
-      pageNumber ? `?page=${pageNumber}` : ""
-    }`;
-    const response = await fetch(fullUrl, {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${config.apiKey}`,
-      },
-    });
-
-    const json = await response.json();
-    setData((prevData) => {
-      return [...prevData, ...json.results];
-    });
+        const result = await response.json();
+        return result;
+      }
+    } catch (error) {
+      console.error("useFetch error");
+      console.error(error);
+    }
   };
 
-  useEffect(() => {
-    fetchData(url);
-  }, [url]);
-
-  const refetch = (url, page) => {
-    fetchData(url, page);
-  };
-
-  return { data, refetch };
+  return fetchData;
 };
 
 export default useFetch;

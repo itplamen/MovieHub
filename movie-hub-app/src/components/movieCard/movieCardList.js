@@ -1,25 +1,14 @@
 import { Row, Col, Container, Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import constants from "@/data/constants.json";
-import useFetch from "@/hooks/useFetch";
+import useMovieList from "@/hooks/useMovieList";
 import MovieCard from "./movieCard";
 import Header from "../header/header";
-import { useEffect, useRef, useState } from "react";
 
 const MovieCardList = ({ type, description, url }) => {
-  const [page, setPage] = useState(1);
-  const { data: movies, refetch } = useFetch(url);
+  const { movies, loadMore } = useMovieList(url);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
-  const isMounted = useRef(false);
-
-  useEffect(() => {
-    if (isMounted.current) {
-      refetch(url, page);
-    } else {
-      isMounted.current = true;
-    }
-  }, [page]);
 
   return (
     <Container>
@@ -42,10 +31,7 @@ const MovieCardList = ({ type, description, url }) => {
             Show All
           </Button>
         ) : (
-          <Button
-            variant="outline-dark"
-            onClick={() => setPage((prev) => prev + 1)}
-          >
+          <Button variant="outline-dark" onClick={loadMore}>
             Load More
           </Button>
         )}
