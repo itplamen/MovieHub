@@ -8,7 +8,7 @@ const MovieCard = ({ posterImg }) => {
       <Card.Img
         variant="top"
         className={styles.cardImage}
-        src={`${config.imgBaseUrl}/${posterImg}`}
+        src={`${config.imgBaseUrl}/${config.imageSizes.w500}/${posterImg}`}
       />
     </Card>
   );

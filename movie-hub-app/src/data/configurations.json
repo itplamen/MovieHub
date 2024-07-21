@@ -1,7 +1,12 @@
 {
-  "apiKey": "API_KEY_HERE",
+  "apiKey": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjY2OGUwNjFkOGEwZmI2MTM0MGQzMDg4YWE5MGU5YiIsIm5iZiI6MTcyMTExNDYyOS42ODI5MjEsInN1YiI6IjY2OTYxZThhODBkYmNjYzM3N2ZkOTdkMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DGxFruYYEWfNLV6jIbMKzI5LRwtuzHWv-8WsnuFMjcQ",
   "apiBaseUrl": "https://api.themoviedb.org/3/",
-  "imgBaseUrl": "http://image.tmdb.org/t/p/w500/",
+  "imgBaseUrl": "https://image.tmdb.org/t/p/",
+  "videoBaseUrl": "https://www.youtube.com/watch?v=",
+  "imageSizes": {
+    "w500": "w500",
+    "w92": "w92"
+  },
   "trendings": [
     {
       "type": "movies",
@@ -12,6 +17,12 @@
       "type": "tv",
       "description": "Trending TV Shows",
       "url": "/trending/tv/week"
+    }
+  ],
+  "details": [
+    {
+      "type": "movies",
+      "url": "/movie/{id}?append_to_response=credits%2Ckeywords%2Crecommendations%2Creviews%2Ctranslations%2Cvideos"
     }
   ]
 }
