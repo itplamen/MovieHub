@@ -4,6 +4,7 @@ import constants from "@/data/constants.json";
 import useMovieList from "@/hooks/useMovieList";
 import MovieCard from "./movieCard";
 import Header from "../header/header";
+import Link from "next/link";
 
 const MovieCardList = ({ type, description, url }) => {
   const { movies, loadMore } = useMovieList(url);
@@ -18,7 +19,9 @@ const MovieCardList = ({ type, description, url }) => {
           .slice(0, isHomePage ? constants.TRENDING_MOVIES_COUNT : -1)
           .map((x) => (
             <Col key={x.id} xs={12} sm={6} md={4} lg={3} xl={2}>
-              <MovieCard posterImg={x.poster_path} />
+              <Link href={`/${type}/${x.id}`}>
+                <MovieCard posterImg={x.poster_path} />
+              </Link>
             </Col>
           ))}
       </Row>

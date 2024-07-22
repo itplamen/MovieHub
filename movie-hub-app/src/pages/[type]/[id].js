@@ -10,6 +10,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Carousel from "react-bootstrap/Carousel";
 import Card from "react-bootstrap/Card";
 import ReactPlayer from "react-player";
+import Link from "next/link";
 
 const formatAmount = (amount) => {
   let scaledamount = amount / 100;
@@ -50,16 +51,21 @@ const Details = () => {
             <div className={styles.info}>
               <div>
                 <h2 className={styles.title}>
-                  {details.original_title} (
-                  {new Date(details.release_date).getFullYear()})
+                  {details.original_title ?? details.name} (
+                  {new Date(
+                    details.release_date ?? details.first_air_date
+                  ).getFullYear()}
+                  )
                 </h2>
                 <div className={styles.facts}>
                   <span>
-                    {new Date(details.release_date).toLocaleDateString()} (
-                    {details.origin_country.map((x) => x).join(", ")})
+                    {new Date(
+                      details.release_date ?? details.first_air_date
+                    ).toLocaleDateString()}{" "}
+                    ({details.origin_country.map((x) => x).join(", ")})
                   </span>
                   <span>{details.genres.map((x) => x.name).join(", ")}</span>
-                  <span>{details.runtime} min</span>
+                  {details.runtime && <span>{details.runtime} min</span>}
                 </div>
               </div>
               <div>
@@ -85,22 +91,30 @@ const Details = () => {
                     <h6>Status</h6>
                     {details.status}
                   </li>
-                  <li>
-                    <h6>Budget</h6>
-                    {formatAmount(details.budget)}
-                  </li>
-                  <li>
-                    <h6>Revenue</h6>
-                    {formatAmount(details.revenue)}
-                  </li>
-                  {details.production_companies.map((x) => (
-                    <li key={x.id}>
-                      <img
-                        alt={x.name}
-                        src={`${config.imgBaseUrl}/${config.imageSizes.w92}/${x.logo_path}`}
-                      />
+                  {details.budget && (
+                    <li>
+                      <h6>Budget</h6>
+                      {formatAmount(details.budget)}
                     </li>
-                  ))}
+                  )}
+                  {details.revenue && (
+                    <li>
+                      <h6>Revenue</h6>
+                      {formatAmount(details.revenue)}
+                    </li>
+                  )}
+                  {details.production_companies
+                    .filter((x) => x.logo_path != null)
+                    .slice(0, 4)
+                    .map((x) => (
+                      <li key={x.id}>
+                        <img
+                          alt={x.name}
+                          title={x.name}
+                          src={`${config.imgBaseUrl}/${config.imageSizes.w92}/${x.logo_path}`}
+                        />
+                      </li>
+                    ))}
                 </ol>
               </div>
             </div>
@@ -133,32 +147,36 @@ const Details = () => {
               ))}
             </div>
           </section>
-          <section className={styles.sectionNoFlex}>
-            <h4>Top Reviews</h4>
-            <Accordion defaultActiveKey="0">
-              {details.reviews.results.slice(0, 5).map((x, i) => (
-                <Accordion.Item key={x.id} eventKey={`${i}`}>
-                  <Accordion.Header>
-                    {x.author_details.avatar_path ? (
-                      <img
-                        className={styles.authorAvatar}
-                        alt="Author Avatar"
-                        src={`${config.imgBaseUrl}/${config.imageSizes.w92}/${x.author_details.avatar_path}`}
-                      />
-                    ) : (
-                      <div className={styles.authorAvatar}></div>
-                    )}
 
-                    <b>A review by {x.author}</b>
-                    <small style={{ marginLeft: "6px" }}>
-                      ({new Date(x.created_at).toLocaleDateString()})
-                    </small>
-                  </Accordion.Header>
-                  <Accordion.Body>{x.content}</Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion>
-          </section>
+          {details.reviews.results.length > 0 && (
+            <section className={styles.sectionNoFlex}>
+              <h4>Top Reviews</h4>
+              <Accordion defaultActiveKey="0">
+                {details.reviews.results.slice(0, 5).map((x, i) => (
+                  <Accordion.Item key={x.id} eventKey={`${i}`}>
+                    <Accordion.Header>
+                      {x.author_details.avatar_path ? (
+                        <img
+                          className={styles.authorAvatar}
+                          alt="Author Avatar"
+                          src={`${config.imgBaseUrl}/${config.imageSizes.w92}/${x.author_details.avatar_path}`}
+                        />
+                      ) : (
+                        <div className={styles.authorAvatar}></div>
+                      )}
+
+                      <b>A review by {x.author}</b>
+                      <small style={{ marginLeft: "6px" }}>
+                        ({new Date(x.created_at).toLocaleDateString()})
+                      </small>
+                    </Accordion.Header>
+                    <Accordion.Body>{x.content}</Accordion.Body>
+                  </Accordion.Item>
+                ))}
+              </Accordion>
+            </section>
+          )}
+
           <section className={styles.sectionNoFlex}>
             <h4>Media</h4>
             <Carousel>
@@ -178,18 +196,24 @@ const Details = () => {
               ))}
             </Carousel>
           </section>
-          <h4>Recommendations</h4>
-          <section className={styles.section}>
-            {details.recommendations.results.slice(0, 6).map((x) => (
-              <div className={styles.recommendation}>
-                <img
-                  src={`${config.imgBaseUrl}/${config.imageSizes.w500}/${x.poster_path}`}
-                  alt="Poster Img"
-                  className={styles.img}
-                />
-              </div>
-            ))}
-          </section>
+          {details.recommendations.results.length > 0 && (
+            <>
+              <h4>Recommendations</h4>
+              <section className={styles.section}>
+                {details.recommendations.results.slice(0, 6).map((x) => (
+                  <div key={x.id} className={styles.recommendation}>
+                    <Link href={`/${type}/${x.id}`}>
+                      <img
+                        src={`${config.imgBaseUrl}/${config.imageSizes.w500}/${x.poster_path}`}
+                        alt="Poster Img"
+                        className={styles.img}
+                      />
+                    </Link>
+                  </div>
+                ))}
+              </section>
+            </>
+          )}
         </Container>
       </>
     )

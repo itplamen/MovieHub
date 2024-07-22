@@ -22,7 +22,11 @@
   "details": [
     {
       "type": "movies",
-      "url": "/movie/{id}?append_to_response=credits%2Ckeywords%2Crecommendations%2Creviews%2Ctranslations%2Cvideos"
+      "url": "/movie/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos"
+    },
+    {
+      "type": "tv",
+      "url": "/tv/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos"
     }
   ]
 }
