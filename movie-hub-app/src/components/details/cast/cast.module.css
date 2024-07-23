@@ -1,0 +1,22 @@
+.cast {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.card {
+  width: 10rem;
+  height: 15rem;
+}
+
+.img {
+  height: 9rem;
+}
+
+.name {
+  font-size: 0.9rem;
+}
+
+.character {
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+}

@@ -28,5 +28,8 @@
       "type": "tv",
       "url": "/tv/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos"
     }
-  ]
+  ],
+  "mediaMaxCount": 5,
+  "reviewsMaxCount": 5,
+  "recommendationsMaxCount": 6
 }

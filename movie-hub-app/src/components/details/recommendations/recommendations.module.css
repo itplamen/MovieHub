@@ -1,0 +1,23 @@
+.recommendation {
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.recommendation {
+  width: 200px;
+  height: 300px;
+  border-radius: var(--border-radius);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.recommendation:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
