@@ -26,7 +26,10 @@ const MovieInfo = () => {
         </Head>
 
         <Container>
-          <Header text={"Details"} />
+          <Header
+            text={"Details"}
+            breadcrumb={details.original_title ?? details.name}
+          />
           <Details details={details} />
           <Cast members={details.credits.cast} />
           <Reviews reviews={details.reviews.results} />
