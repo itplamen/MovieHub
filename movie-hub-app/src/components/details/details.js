@@ -17,7 +17,11 @@ const formatAmount = (amount) => {
 
 const Details = ({ details }) => {
   const [language, setLanguage] = useState(
-    details.translations.translations[0]
+    details.translations.translations.find(
+      (x) =>
+        x.iso_3166_1 === config.defaultLanguage.iso_3166_1 &&
+        x.iso_639_1 === config.defaultLanguage.iso_639_1
+    )
   );
 
   const handleLanguageSelect = (iso_3166_1, iso_639_1) => {

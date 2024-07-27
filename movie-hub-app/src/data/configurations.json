@@ -31,5 +31,9 @@
   ],
   "mediaMaxCount": 5,
   "reviewsMaxCount": 5,
-  "recommendationsMaxCount": 6
+  "recommendationsMaxCount": 6,
+  "defaultLanguage": {
+    "iso_3166_1": "US",
+    "iso_639_1": "en"
+  }
 }
