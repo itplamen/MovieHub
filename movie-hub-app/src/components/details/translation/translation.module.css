@@ -1,0 +1,26 @@
+.language {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: -2.4rem;
+}
+
+.scrollableMenu {
+  max-height: 20rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.scrollableMenu::-webkit-scrollbar {
+  width: 0.4rem;
+  background: gray;
+}
+
+.scrollableMenu::-webkit-scrollbar-track {
+  background-color: var(--bs-body-bg);
+}
+
+.scrollableMenu::-webkit-scrollbar-thumb:vertical {
+  background: #000;
+  border-radius: 10px;
+}

@@ -22,11 +22,11 @@
   "details": [
     {
       "type": "movies",
-      "url": "/movie/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos"
+      "url": "/movie/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations"
     },
     {
       "type": "tv",
-      "url": "/tv/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos"
+      "url": "/tv/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations"
     }
   ],
   "mediaMaxCount": 5,
