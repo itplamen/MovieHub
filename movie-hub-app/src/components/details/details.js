@@ -58,11 +58,13 @@ const Details = ({ details }) => {
                 : language.data.name
                 ? language.data.name
                 : details.original_title ?? details.name}
-              (
-              {new Date(
-                details.release_date ?? details.first_air_date
-              ).getFullYear()}
-              )
+              <span className={styles.year}>
+                (
+                {new Date(
+                  details.release_date ?? details.first_air_date
+                ).getFullYear()}
+                )
+              </span>
             </h2>
 
             <div className={styles.facts}>

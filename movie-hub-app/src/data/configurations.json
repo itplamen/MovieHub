@@ -4,20 +4,11 @@
   "imgBaseUrl": "https://image.tmdb.org/t/p/",
   "videoBaseUrl": "https://www.youtube.com/watch?v=",
   "trendingsUrl": "/trending/{type}/week",
+  "detailsUrl": "/{type}/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations",
   "imageSizes": {
     "w500": "w500",
     "w92": "w92"
   },
-  "details": [
-    {
-      "type": "movies",
-      "url": "/movie/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations"
-    },
-    {
-      "type": "tv",
-      "url": "/tv/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations"
-    }
-  ],
   "mediaMaxCount": 5,
   "reviewsMaxCount": 5,
   "recommendationsMaxCount": 6,

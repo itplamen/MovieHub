@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
-
 import Header from "@/components/header/header";
 import useMovieDetails from "@/hooks/useMovieDetails";
 import Recommendations from "@/components/details/recommendations/recommendations";

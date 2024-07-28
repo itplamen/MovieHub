@@ -46,6 +46,10 @@
   font-weight: 600;
 }
 
+.year {
+  margin-left: 10px;
+}
+
 .facts span {
   padding-right: 0.3rem;
 }

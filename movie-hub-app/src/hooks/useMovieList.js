@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
 import config from "@/data/configurations.json";
+import { formatUrl } from "@/utils/formatters";
 import useFetch from "./useFetch";
-
-const getUrl = (type) => {
-  if (type) {
-    return config.trendingsUrl.replace(/{([^}]*)}/g, type);
-  }
-
-  return "";
-};
 
 const useMovieList = (type) => {
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
-  const fetchData = useFetch(`${getUrl(type)}?page=${page}`);
+  const fetchData = useFetch(
+    `${formatUrl(config.trendingsUrl, type)}?page=${page}`
+  );
 
   useEffect(() => {
     const fetchMovieList = async () => {
