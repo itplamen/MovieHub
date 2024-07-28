@@ -1,4 +1,11 @@
 {
+  "MOVIE_TYPES": [
+    {
+      "type": "movie",
+      "description": "Movies"
+    },
+    { "type": "tv", "description": "TV Shows" }
+  ],
   "TRENDING_MOVIES_COUNT": 12,
   "MOVIES_LIST_PAGE_NUMBER": {
     "MIN": 1,

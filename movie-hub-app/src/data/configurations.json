@@ -3,22 +3,11 @@
   "apiBaseUrl": "https://api.themoviedb.org/3/",
   "imgBaseUrl": "https://image.tmdb.org/t/p/",
   "videoBaseUrl": "https://www.youtube.com/watch?v=",
+  "trendingsUrl": "/trending/{type}/week",
   "imageSizes": {
     "w500": "w500",
     "w92": "w92"
   },
-  "trendings": [
-    {
-      "type": "movies",
-      "description": "Trending Movies",
-      "url": "/trending/movie/week"
-    },
-    {
-      "type": "tv",
-      "description": "Trending TV Shows",
-      "url": "/trending/tv/week"
-    }
-  ],
   "details": [
     {
       "type": "movies",

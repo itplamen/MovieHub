@@ -6,14 +6,14 @@ import MovieCard from "./movieCard";
 import Header from "../header/header";
 import Link from "next/link";
 
-const MovieCardList = ({ type, description, url }) => {
-  const { movies, loadMore } = useMovieList(url);
+const MovieCardList = ({ type, description }) => {
+  const { movies, loadMore } = useMovieList(type);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
 
   return (
     <Container>
-      <Header text={description} />
+      <Header text={`Trending ${description}`} />
       <Row>
         {movies
           .slice(0, isHomePage ? constants.TRENDING_MOVIES_COUNT : -1)

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import config from "@/data/configurations.json";
+import constants from "@/data/constants.json";
 import MovieCardList from "@/components/movieCard/movieCardList";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {config.trendings.map((x) => (
+      {constants.MOVIE_TYPES.map((x) => (
         <MovieCardList key={x.type} {...x} />
       ))}
     </>
