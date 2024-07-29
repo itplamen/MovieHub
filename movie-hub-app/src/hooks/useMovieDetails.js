@@ -5,7 +5,7 @@ import useFetch from "./useFetch";
 
 const useMovieDetails = (type, id) => {
   const [details, setDetails] = useState();
-  const fetchData = useFetch(formatUrl(config.detailsUrl, type, id));
+  const fetchData = useFetch(formatUrl(config.detailsUrl, { type, id }));
 
   useEffect(() => {
     const fetchDetails = async () => {

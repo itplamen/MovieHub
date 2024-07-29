@@ -6,9 +6,7 @@ import useFetch from "./useFetch";
 const useMovieList = (type) => {
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
-  const fetchData = useFetch(
-    `${formatUrl(config.trendingsUrl, type)}?page=${page}`
-  );
+  const fetchData = useFetch(formatUrl(config.trendingsUrl, { type, page }));
 
   useEffect(() => {
     const fetchMovieList = async () => {
