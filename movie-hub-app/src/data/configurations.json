@@ -4,7 +4,10 @@
   "imgBaseUrl": "https://image.tmdb.org/t/p/",
   "videoBaseUrl": "https://www.youtube.com/watch?v=",
   "trendingsUrl": "/trending/{type}/week?page={page}",
+  "topRatedUrl": "/{type}/top_rated",
   "detailsUrl": "/{type}/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations",
+  "genresUrl": "/genre/{type}/list",
+  "searchUrl": "/discover/{type}?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres={genreId}",
   "imageSizes": {
     "w500": "w500",
     "w92": "w92"

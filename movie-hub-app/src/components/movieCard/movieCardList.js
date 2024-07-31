@@ -6,15 +6,16 @@ import MovieCard from "./movieCard";
 import Header from "../header/header";
 import Link from "next/link";
 
-const MovieCardList = ({ type, description }) => {
-  const { movies, loadMore } = useMovieList(type);
+const MovieCardList = ({ type, title, url }) => {
+  const { movies, loadMore } = useMovieList(url, type);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
 
   return (
     <Container>
-      <Header text={`Trending ${description}`} />
+      {!isHomePage && <Header text={title} />}
       <Row>
+        {isHomePage && <h4>{title}</h4>}
         {movies
           .slice(0, isHomePage ? constants.TRENDING_MOVIES_COUNT : -1)
           .map((x) => (
@@ -26,14 +27,7 @@ const MovieCardList = ({ type, description }) => {
           ))}
       </Row>
       <div className="d-flex justify-content-center">
-        {isHomePage ? (
-          <Button
-            variant="outline-dark"
-            onClick={() => router.push(`/${type}`)}
-          >
-            Show All
-          </Button>
-        ) : (
+        {!isHomePage && (
           <Button variant="outline-dark" onClick={loadMore}>
             Load More
           </Button>
