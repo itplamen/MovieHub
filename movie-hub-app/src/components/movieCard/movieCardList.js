@@ -13,7 +13,7 @@ const MovieCardList = ({ type, title, url }) => {
 
   return (
     <Container>
-      {!isHomePage && <Header text={title} />}
+      {!isHomePage && <Header text={title} breadcrumb={type} />}
       <Row>
         {isHomePage && <h4>{title}</h4>}
         {movies
