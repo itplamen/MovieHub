@@ -1,5 +1,4 @@
 import { Collapse, Container, Tab, Tabs } from "react-bootstrap";
-import styles from "./mainHomeMovies.module.css";
 import constants from "@/data/constants.json";
 import config from "@/data/configurations.json";
 import MovieCardList from "../movieCard/movieCardList";
@@ -17,11 +16,10 @@ const moviesHomeList = [
 
 const MainHomeMovies = () => {
   return (
-    <Container>
+    <Container id="MainContainer">
       <Tabs
         transition={Collapse}
         defaultActiveKey={constants.MOVIE_TYPES[0].type}
-        id={styles.MainHomeMovies}
         className="mb-3"
       >
         {constants.MOVIE_TYPES.map((movieType) => (
@@ -33,7 +31,7 @@ const MainHomeMovies = () => {
             {moviesHomeList.map((homeList) => (
               <div
                 key={`${homeList.title.replace(" ", "_")}_${movieType.type}`}
-                className={styles.movieList}
+                style={{ marginBottom: "20px" }}
               >
                 <MovieCardList
                   type={movieType.type}
