@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import constants from "@/data/constants.json";
 import useMovieList from "@/hooks/useMovieList";
 import MovieCard from "./movieCard";
-import Header from "../header/header";
 import Link from "next/link";
 
 const MovieCardList = ({ type, title, url }) => {
@@ -12,8 +11,7 @@ const MovieCardList = ({ type, title, url }) => {
   const isHomePage = router.pathname === "/";
 
   return (
-    <Container>
-      {!isHomePage && <Header text={title} breadcrumb={type} />}
+    <>
       <Row>
         {isHomePage && <h4>{title}</h4>}
         {movies
@@ -33,7 +31,7 @@ const MovieCardList = ({ type, title, url }) => {
           </Button>
         )}
       </div>
-    </Container>
+    </>
   );
 };
 
