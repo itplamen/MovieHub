@@ -10,13 +10,18 @@ const useMovieList = (url, type) => {
   useEffect(() => {
     const fetchMovieList = async () => {
       const data = await fetchData();
-      setMovies((prevData) => {
-        return [...prevData, ...data.results];
-      });
+
+      if (page > 1) {
+        setMovies((prevData) => {
+          return [...prevData, ...data.results];
+        });
+      } else {
+        setMovies(data.results);
+      }
     };
 
     fetchMovieList();
-  }, [page]);
+  }, [url, page]);
 
   const loadMore = () => {
     // TODO: page withing range

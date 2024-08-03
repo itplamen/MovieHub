@@ -7,7 +7,7 @@
   "topRatedUrl": "/{type}/top_rated",
   "detailsUrl": "/{type}/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations",
   "genresUrl": "/genre/{type}/list",
-  "searchUrl": "/discover/{type}?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres={genreId}",
+  "searchUrl": "/discover/{type}?include_adult=false&include_video=false&language=en-US&page={page}&sort_by={sortBy}&with_genres={genreId}&year={year}",
   "imageSizes": {
     "w500": "w500",
     "w92": "w92"
