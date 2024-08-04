@@ -14,15 +14,16 @@ const MovieCardList = ({ type, title, url }) => {
     <>
       <Row>
         {isHomePage && <h4>{title}</h4>}
-        {movies
-          .slice(0, isHomePage ? constants.TRENDING_MOVIES_COUNT : -1)
-          .map((x) => (
-            <Col key={x.id} xs={12} sm={6} md={4} lg={3} xl={2}>
-              <Link href={`/${type}/${x.id}`}>
-                <MovieCard posterImg={x.poster_path} />
-              </Link>
-            </Col>
-          ))}
+        {(isHomePage
+          ? movies.slice(0, constants.HOME_MOVIES_COUNT)
+          : movies
+        ).map((x) => (
+          <Col key={x.id} xs={12} sm={6} md={4} lg={3} xl={2}>
+            <Link href={`/${type}/${x.id}`}>
+              <MovieCard posterImg={x.poster_path} />
+            </Link>
+          </Col>
+        ))}
       </Row>
       <div className="d-flex justify-content-center">
         {!isHomePage && (
