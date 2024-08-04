@@ -209,7 +209,7 @@ const Filter = ({ search }) => {
         </Col>
         <Col md>
           <Button
-            variant="outline-dark"
+            variant="warning"
             onClick={() =>
               search({
                 ...state,

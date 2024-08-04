@@ -7,7 +7,6 @@ import { Container } from "react-bootstrap";
 import Filter from "@/components/filter/filter";
 import { formatSearchUrl } from "@/utils/formatters";
 import { useState } from "react";
-
 const Discover = () => {
   const [url, setUrl] = useState();
   const [type, setType] = useState(constants.MOVIE_TYPES[0].type);
@@ -31,9 +30,9 @@ const Discover = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <Container id="MainContainer">
         <Header text="Discover Movies" />
-
         <Filter search={search} />
         {type && url && (
           <MovieCardList
