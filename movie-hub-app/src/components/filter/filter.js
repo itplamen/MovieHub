@@ -1,11 +1,11 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 import styles from "./filter.module.css";
 import constants from "@/data/constants.json";
 import useGenres from "@/hooks/useGenres";
 
 const NONE_VALUE = {
-  id: null,
+  id: "",
   name: "None",
 };
 
@@ -136,13 +136,13 @@ const Filter = ({ search }) => {
     });
   };
 
+  useEffect(() => {
+    search({ ...state });
+  }, []);
+
   return (
     <div id={styles.Filter}>
       <Row className="g-2">
-        <Col md>
-          <h6>Total Results</h6>
-          <small>906,859</small>
-        </Col>
         <Col md>
           <FloatingLabel controlId="movieTypeSelect" label="Type">
             <Form.Select
@@ -216,7 +216,7 @@ const Filter = ({ search }) => {
               })
             }
           >
-            Search
+            Filter
           </Button>
         </Col>
       </Row>

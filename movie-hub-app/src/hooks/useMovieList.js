@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { formatUrl } from "@/utils/formatters";
 import useFetch from "./useFetch";
 
+const INITIAL_PAGE = 1;
+
 const useMovieList = (url, type) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(INITIAL_PAGE);
   const [movies, setMovies] = useState([]);
   const fetchData = useFetch(formatUrl(url, { type, page }));
 
@@ -11,7 +13,7 @@ const useMovieList = (url, type) => {
     const fetchMovieList = async () => {
       const data = await fetchData();
 
-      if (page > 1) {
+      if (page > INITIAL_PAGE) {
         setMovies((prevData) => {
           return [...prevData, ...data.results];
         });
@@ -21,7 +23,7 @@ const useMovieList = (url, type) => {
     };
 
     fetchMovieList();
-  }, [url, page]);
+  }, [url, type, page]);
 
   const loadMore = () => {
     // TODO: page withing range
