@@ -1,0 +1,23 @@
+#RecentSearches {
+  max-height: 20rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#RecentSearches::-webkit-scrollbar {
+  width: 0.4rem;
+  background: gray;
+}
+
+#RecentSearches::-webkit-scrollbar-track {
+  background-color: var(--bs-body-bg);
+}
+
+#RecentSearches::-webkit-scrollbar-thumb:vertical {
+  background: #000;
+  border-radius: 10px;
+}
+
+#RecentSearchesText {
+  font-weight: bold;
+}
