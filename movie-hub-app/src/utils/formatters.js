@@ -34,7 +34,7 @@ export const formatUrl = (url, params) => {
   return result;
 };
 
-export const formatSearchUrl = (url, params) => {
+export const formatDiscoverUrl = (url, params) => {
   let result = url;
 
   for (let key in params) {

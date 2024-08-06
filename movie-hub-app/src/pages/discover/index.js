@@ -5,20 +5,20 @@ import MovieCardList from "@/components/movieCard/movieCardList";
 import Header from "@/components/header/header";
 import { Container } from "react-bootstrap";
 import Filter from "@/components/filter/filter";
-import { formatSearchUrl } from "@/utils/formatters";
+import { formatDiscoverUrl } from "@/utils/formatters";
 import { useState } from "react";
 const Discover = () => {
   const [url, setUrl] = useState();
   const [type, setType] = useState(constants.MOVIE_TYPES[0].type);
 
   const search = ({ movieType, genreId, year, sortBy }) => {
-    const searchUrl = formatSearchUrl(config.searchUrl, {
+    const discoverUrl = formatDiscoverUrl(config.discoverUrl, {
       genreId,
       year,
       sortBy,
     });
 
-    setUrl(searchUrl);
+    setUrl(discoverUrl);
     setType(movieType);
   };
 
