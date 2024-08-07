@@ -8,6 +8,7 @@
   "detailsUrl": "/{type}/{id}?append_to_response=credits%2Crecommendations%2Creviews%2Cvideos%2Ctranslations",
   "genresUrl": "/genre/{type}/list",
   "discoverUrl": "/discover/{type}?include_adult=false&include_video=false&language=en-US&page={page}&sort_by={sortBy}&with_genres={genreId}&year={year}",
+  "searchUrl": "/search/{type}?query={query}&include_adult=false&language=en-US&page={page}",
   "imageSizes": {
     "w500": "w500",
     "w92": "w92"

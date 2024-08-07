@@ -11,6 +11,8 @@ import {
 import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { useState } from "react";
 import styles from "./searchBar.module.css";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
@@ -47,8 +49,14 @@ const CustomMenu = React.forwardRef(
 );
 
 const SearchBar = () => {
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
   const { data, save, remove } = useLocalStorage("search");
+
+  const handleSearch = () => {
+    save(searchValue);
+    router.push(`/search/${searchValue}`);
+  };
 
   return (
     <Dropdown>
@@ -61,7 +69,7 @@ const SearchBar = () => {
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
           />
-          <Button variant="warning" onClick={() => save(searchValue)}>
+          <Button variant="warning" onClick={handleSearch}>
             <i className="bi bi-search"></i>
           </Button>
         </InputGroup>
@@ -73,9 +81,11 @@ const SearchBar = () => {
           </Dropdown.Item>
           <Dropdown.Divider />
           {data.map((x, i) => (
-            <Dropdown.Item eventKey={i}>
+            <Dropdown.Item eventKey={i} active={false}>
               <Row>
-                <Col md={10}>{x}</Col>
+                <Col md={10}>
+                  <Link href={`/search/${x}`}>{x}</Link>
+                </Col>
                 <Col md={2}>
                   <CloseButton
                     className="btn btn-dark"
