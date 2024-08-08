@@ -56,5 +56,9 @@ export const formatDiscoverUrl = (url, params) => {
     }
   }
 
+  SEARCH_PARAMS.map((x) => {
+    return (result = result.replace(`&${x.value}={${x.key}}`, ""));
+  });
+
   return result;
 };

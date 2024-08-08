@@ -11,7 +11,7 @@ const Header = ({ text, breadcrumb }) => {
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             {breadcrumb.map((x, i) => (
               <Breadcrumb.Item
-                href={`/${x}`}
+                href={`/${x.toLowerCase()}`}
                 active={i === breadcrumb.length - 1}
               >
                 {formatText(x)}
@@ -20,7 +20,7 @@ const Header = ({ text, breadcrumb }) => {
           </Breadcrumb>
         )}
 
-        <p>{text}</p>
+        <p>{formatText(text)}</p>
       </div>
     </>
   );

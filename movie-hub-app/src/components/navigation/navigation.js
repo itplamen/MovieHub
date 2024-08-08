@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import styles from "./navigation.module.css";
 import { Col, Row } from "react-bootstrap";
 import SearchBar from "./searchBar/searchbar";
 
@@ -15,19 +14,14 @@ const Navigation = () => {
       <Container>
         <Navbar.Brand href="/">MovieHub</Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="">
+          <Nav>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/discover">Discover</Nav.Link>
-
-            <NavDropdown
-              title="Genres"
-              id="basic-nav-dropdown"
-              className={styles.genres}
-            >
-              <Row md={4}>
+            <NavDropdown title="Genres" id="basic-nav-dropdown">
+              <Row md={4} style={{ width: "36rem" }}>
                 {genres.map((x) => (
-                  <Col key={x.id} className={styles.genreItem}>
-                    <NavDropdown.Item href={`/genre/${x.name.toLowerCase()}`}>
+                  <Col key={x.id}>
+                    <NavDropdown.Item href={`/genres/${x.name.toLowerCase()}`}>
                       {x.name}
                     </NavDropdown.Item>
                   </Col>
