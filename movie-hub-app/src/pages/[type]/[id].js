@@ -27,7 +27,7 @@ const MovieInfo = () => {
         <Container>
           <Header
             text={"Details"}
-            breadcrumb={details.original_title ?? details.name}
+            breadcrumb={[type, details.original_title ?? details.name]}
           />
           <Details details={details} />
           <Cast members={details.credits.cast} />
