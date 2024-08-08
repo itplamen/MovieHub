@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/genres") || pathname.startsWith("/genre")) {
+  if (pathname.startsWith("/genre")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
@@ -15,5 +15,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/genres", "/genre", "/movie"],
+  matcher: ["/genre", "/movie"],
 };
