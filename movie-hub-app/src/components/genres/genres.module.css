@@ -1,0 +1,11 @@
+.genre {
+  width: 200px;
+  height: 300px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+}
+.genre:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
