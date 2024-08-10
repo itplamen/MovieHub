@@ -1,36 +1,46 @@
 import { useEffect, useState } from "react";
-
-const getData = (key) => {
-  try {
-    const storedValue = localStorage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : [];
-  } catch (error) {
-    console.log(error);
-  }
-};
+import { v4 as uuidv4 } from "uuid";
 
 const useLocalStorage = (key) => {
-  const [data, setData] = useState(() => {
-    return getData(key);
-  });
+  const [data, setData] = useState();
 
-  const save = (value) => {
+  const getData = (key) => {
+    try {
+      const data = localStorage.getItem(key);
+      return data ? JSON.parse(data) : [];
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  };
+
+  const saveData = (item) => {
+    // TODO: add validations
+    if (!item.hasOwnProperty("key")) {
+      item.key = uuidv4();
+    }
+
     setData((prev) => {
-      return !prev.find((x) => x === value) ? [...prev, value] : prev;
+      return !prev.find((x) => x.key === item.key) ? [...prev, item] : prev;
     });
   };
 
-  const remove = (value) => {
+  const removeData = (item) => {
     setData((prev) => {
-      return [...prev.filter((item) => item !== value)];
+      return [...prev.filter((x) => x.key !== item.key)];
     });
   };
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(data));
-  }, [key, data]);
+    const initialData = getData(key);
+    setData(initialData);
+  }, [key]);
 
-  return { data, save, remove };
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(data));
+  }, [data]);
+
+  return { data, saveData, removeData };
 };
 
 export default useLocalStorage;

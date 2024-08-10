@@ -51,10 +51,10 @@ const CustomMenu = React.forwardRef(
 const SearchBar = () => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
-  const { data, save, remove } = useLocalStorage("search");
+  const { data, saveData, removeData } = useLocalStorage("search");
 
   const handleSearch = () => {
-    save(searchValue);
+    saveData({ value: searchValue });
     router.push(`/search/${searchValue}`);
   };
 
@@ -84,13 +84,13 @@ const SearchBar = () => {
             <Dropdown.Item eventKey={i} active={false}>
               <Row>
                 <Col md={10}>
-                  <Link href={`/search/${x}`}>{x}</Link>
+                  <Link href={`/search/${x.value}`}>{x.value}</Link>
                 </Col>
                 <Col md={2}>
                   <CloseButton
                     className="btn btn-dark"
-                    value={x}
-                    onClick={(event) => remove(event.target.value)}
+                    value={x.value}
+                    onClick={(event) => removeData(event.target.value)}
                   />
                 </Col>
               </Row>
