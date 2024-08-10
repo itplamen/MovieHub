@@ -29,7 +29,7 @@ const MovieInfo = () => {
             text={"Details"}
             breadcrumb={[type, details.original_title ?? details.name]}
           />
-          <Details details={details} />
+          <Details details={details} type={type} />
           <Cast members={details.credits.cast} />
           <Reviews reviews={details.reviews.results} />
           <Media videos={details.videos.results} />

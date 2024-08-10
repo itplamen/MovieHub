@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import styles from "./details.module.css";
 import config from "@/data/configurations.json";
 import Translation from "./translation/translation";
+import { Button, Col, Row } from "react-bootstrap";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const formatAmount = (amount) => {
   const scaledamount = amount / 100;
@@ -15,7 +17,9 @@ const formatAmount = (amount) => {
   });
 };
 
-const Details = ({ details }) => {
+const Details = ({ details, type }) => {
+  const { data, saveData, removeData } = useLocalStorage("favorites");
+  const [isFavorie, setIsFavorie] = useState(false);
   const [language, setLanguage] = useState(
     details.translations.translations.find(
       (x) =>
@@ -24,12 +28,34 @@ const Details = ({ details }) => {
     )
   );
 
+  useEffect(() => {
+    setIsFavorie(
+      data && data.length > 0 ? data.some((x) => x.key === details.id) : false
+    );
+  }, [data]);
+
   const handleLanguageSelect = (iso_3166_1, iso_639_1) => {
     // TODO: add more validations
     const selected = details.translations.translations.find(
       (x) => x.iso_3166_1 === iso_3166_1 && x.iso_639_1 === iso_639_1
     );
     setLanguage(selected);
+  };
+
+  const addFavorite = () => {
+    saveData({
+      key: details.id,
+      value: {
+        type: type,
+        posterImg: `${config.imgBaseUrl}/${config.imageSizes.w500}/${details.poster_path}`,
+      },
+    });
+    setIsFavorie(true);
+  };
+
+  const removeFavorite = () => {
+    removeData({ key: details.id });
+    setIsFavorie(false);
   };
 
   return (
@@ -66,7 +92,6 @@ const Details = ({ details }) => {
                 )
               </span>
             </h2>
-
             <div className={styles.facts}>
               <span>
                 {new Date(
@@ -79,17 +104,31 @@ const Details = ({ details }) => {
             </div>
           </div>
           <div>
-            <span>
-              <b>Rating:</b> {details.vote_count} votes
-            </span>
-            <ProgressBar
-              className={styles.rating}
-              animated={true}
-              min={0}
-              max={10}
-              now={details.vote_average}
-              label={`${Math.round(details.vote_average * 10)}%`}
-            />
+            <Row>
+              <Col>
+                <span>
+                  <b>Rating:</b> {details.vote_count} votes
+                </span>
+                <ProgressBar
+                  className={styles.rating}
+                  animated={true}
+                  min={0}
+                  max={10}
+                  now={details.vote_average}
+                  label={`${Math.round(details.vote_average * 10)}%`}
+                />
+              </Col>
+              <Col>
+                <Button
+                  variant={isFavorie ? "primary" : "outline-primary"}
+                  size="lg"
+                  title={isFavorie ? "Remove Favorite" : "Add Favorite"}
+                  onClick={isFavorie ? removeFavorite : addFavorite}
+                >
+                  <i class="bi bi-heart-fill"></i>
+                </Button>
+              </Col>
+            </Row>
           </div>
           <p className={styles.overview}>
             <i>{language.data.tagline}</i> <br />
