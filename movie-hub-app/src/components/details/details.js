@@ -1,10 +1,11 @@
 import { useState } from "react";
-import ProgressBar from "react-bootstrap/ProgressBar";
+
 import styles from "./details.module.css";
 import config from "@/data/configurations.json";
 import Translation from "./translation/translation";
 import { Col, Row } from "react-bootstrap";
 import Favorites from "./favorites/favorites";
+import Rating from "./rating/rating";
 
 const formatAmount = (amount) => {
   const scaledamount = amount / 100;
@@ -82,17 +83,7 @@ const Details = ({ details, type }) => {
           <div>
             <Row>
               <Col>
-                <span>
-                  <b>Rating:</b> {details.vote_count} votes
-                </span>
-                <ProgressBar
-                  className={styles.rating}
-                  animated={true}
-                  min={0}
-                  max={10}
-                  now={details.vote_average}
-                  label={`${Math.round(details.vote_average * 10)}%`}
-                />
+                <Rating details={details} />
               </Col>
               <Col>
                 <Favorites details={details} type={type} />

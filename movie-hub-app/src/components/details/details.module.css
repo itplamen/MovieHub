@@ -61,10 +61,6 @@
   content: "";
 }
 
-.rating {
-  width: 30rem;
-}
-
 .overview {
   color: rgba(var(--color-text-secondary));
   line-height: var(--line-height);
