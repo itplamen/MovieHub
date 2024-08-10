@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import styles from "./details.module.css";
 import config from "@/data/configurations.json";
 import Translation from "./translation/translation";
-import { Button, Col, Row } from "react-bootstrap";
-import useLocalStorage from "@/hooks/useLocalStorage";
+import { Col, Row } from "react-bootstrap";
+import Favorites from "./favorites/favorites";
 
 const formatAmount = (amount) => {
   const scaledamount = amount / 100;
@@ -18,8 +18,6 @@ const formatAmount = (amount) => {
 };
 
 const Details = ({ details, type }) => {
-  const { data, saveData, removeData } = useLocalStorage("favorites");
-  const [isFavorie, setIsFavorie] = useState(false);
   const [language, setLanguage] = useState(
     details.translations.translations.find(
       (x) =>
@@ -28,34 +26,12 @@ const Details = ({ details, type }) => {
     )
   );
 
-  useEffect(() => {
-    setIsFavorie(
-      data && data.length > 0 ? data.some((x) => x.key === details.id) : false
-    );
-  }, [data]);
-
   const handleLanguageSelect = (iso_3166_1, iso_639_1) => {
     // TODO: add more validations
     const selected = details.translations.translations.find(
       (x) => x.iso_3166_1 === iso_3166_1 && x.iso_639_1 === iso_639_1
     );
     setLanguage(selected);
-  };
-
-  const addFavorite = () => {
-    saveData({
-      key: details.id,
-      value: {
-        type: type,
-        posterImg: `${config.imgBaseUrl}/${config.imageSizes.w500}/${details.poster_path}`,
-      },
-    });
-    setIsFavorie(true);
-  };
-
-  const removeFavorite = () => {
-    removeData({ key: details.id });
-    setIsFavorie(false);
   };
 
   return (
@@ -119,14 +95,7 @@ const Details = ({ details, type }) => {
                 />
               </Col>
               <Col>
-                <Button
-                  variant={isFavorie ? "primary" : "outline-primary"}
-                  size="lg"
-                  title={isFavorie ? "Remove Favorite" : "Add Favorite"}
-                  onClick={isFavorie ? removeFavorite : addFavorite}
-                >
-                  <i class="bi bi-heart-fill"></i>
-                </Button>
+                <Favorites details={details} type={type} />
               </Col>
             </Row>
           </div>

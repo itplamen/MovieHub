@@ -10,5 +10,8 @@
   "MOVIES_LIST_PAGE_NUMBER": {
     "MIN": 1,
     "MAX": 50
+  },
+  "STORAGE_KEYS": {
+    "FAVORITES": "favorites"
   }
 }
