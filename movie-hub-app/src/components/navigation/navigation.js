@@ -28,7 +28,7 @@ const Navigation = () => {
                 ))}
               </Row>
             </NavDropdown>
-
+            <Nav.Link href="/favorites">Favorites</Nav.Link>
             <SearchBar />
           </Nav>
         </Navbar.Collapse>
