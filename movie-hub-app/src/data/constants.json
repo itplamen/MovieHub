@@ -12,6 +12,9 @@
     "MAX": 50
   },
   "STORAGE_KEYS": {
-    "FAVORITES": "favorites"
+    "FAVORITES": "favorites",
+    "RATING": "rating",
+    "SEARCH": "search"
+  },
   }
 }

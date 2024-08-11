@@ -5,7 +5,9 @@ import constants from "@/data/constants.json";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 const Favorites = ({ details, type }) => {
-  const { data, saveData, removeData } = useLocalStorage(constants.Favorites);
+  const { data, saveData, removeData } = useLocalStorage(
+    constants.STORAGE_KEYS.FAVORITES
+  );
   const [isFavorie, setIsFavorie] = useState(false);
 
   useEffect(() => {

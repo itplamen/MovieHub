@@ -1,13 +1,13 @@
-import Header from "@/components/header/header";
-import MovieCard from "@/components/movieCard/movieCard";
-import useLocalStorage from "@/hooks/useLocalStorage";
-
 import Head from "next/head";
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import Header from "@/components/header/header";
+import MovieCard from "@/components/movieCard/movieCard";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import constants from "@/data/constants.json";
 
 const Favorites = () => {
-  const { data, saveData, removeData } = useLocalStorage("favorites");
+  const { data } = useLocalStorage(constants.STORAGE_KEYS.FAVORITES);
 
   return (
     <>

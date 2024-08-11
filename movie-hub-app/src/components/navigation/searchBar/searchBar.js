@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import styles from "./searchBar.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import constants from "@/data/constants.json";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
@@ -51,7 +52,9 @@ const CustomMenu = React.forwardRef(
 const SearchBar = () => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
-  const { data, saveData, removeData } = useLocalStorage("search");
+  const { data, saveData, removeData } = useLocalStorage(
+    constants.STORAGE_KEYS.SEARCH
+  );
 
   const handleSearch = () => {
     saveData({ value: searchValue });
