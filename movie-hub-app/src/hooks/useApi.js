@@ -1,7 +1,7 @@
 import config from "@/data/configurations.json";
 
-const useFetch = (url) => {
-  const fetchData = async () => {
+const useApi = () => {
+  const fetchData = async (url) => {
     try {
       if (url) {
         const response = await fetch(`${config.apiBaseUrl}/${url}`, {
@@ -16,7 +16,7 @@ const useFetch = (url) => {
         return result;
       }
     } catch (error) {
-      console.error("useFetch error");
+      console.error("fetchData error");
       console.error(error);
     }
   };
@@ -24,4 +24,4 @@ const useFetch = (url) => {
   return fetchData;
 };
 
-export default useFetch;
+export default useApi;

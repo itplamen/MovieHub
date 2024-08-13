@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { formatUrl } from "@/utils/formatters";
-import useFetch from "./useFetch";
+import useApi from "./useApi";
 
 const INITIAL_PAGE = 1;
 
 const useMovieList = (url, type) => {
   const [page, setPage] = useState(INITIAL_PAGE);
   const [movies, setMovies] = useState([]);
-  const fetchData = useFetch(formatUrl(url, { type, page }));
+  const { fetchData } = useApi();
 
   useEffect(() => {
     const fetchMovieList = async () => {
-      const data = await fetchData();
+      const data = await fetchData(formatUrl(url, { type, page }));
 
       if (page > INITIAL_PAGE) {
         setMovies((prevData) => {

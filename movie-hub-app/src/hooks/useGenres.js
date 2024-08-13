@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import useFetch from "./useFetch";
+import useApi from "./useApi";
 import config from "@/data/configurations.json";
 import { formatUrl } from "@/utils/formatters";
 
 const useGenres = (type) => {
   const [genres, setGenres] = useState([]);
-  const fetchData = useFetch(formatUrl(config.genresUrl, { type }));
+  const { fetchData } = useApi();
 
   useEffect(() => {
     const fetchGenres = async () => {
-      const data = await fetchData();
+      const data = await fetchData(formatUrl(config.genresUrl, { type }));
       setGenres(data.genres);
     };
 

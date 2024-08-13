@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import config from "@/data/configurations.json";
 import { formatUrl } from "@/utils/formatters";
-import useFetch from "./useFetch";
+import useApi from "./useApi";
 
 const useMovieDetails = (type, id) => {
   const [details, setDetails] = useState();
-  const fetchData = useFetch(formatUrl(config.detailsUrl, { type, id }));
+  const { fetchData } = useApi();
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const data = await fetchData();
+      const data = await fetchData(formatUrl(config.detailsUrl, { type, id }));
       setDetails(data);
     };
 
