@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 
 const useLocalStorage = (key) => {
   const [data, setData] = useState();
@@ -15,9 +14,12 @@ const useLocalStorage = (key) => {
   };
 
   const saveData = (item) => {
-    // TODO: add validations
+    if (!item) {
+      return;
+    }
+
+    // TODO: add validations for key prop
     if (!item.hasOwnProperty("key")) {
-      item.key = uuidv4();
     }
 
     setData((prev) => {
