@@ -20,10 +20,13 @@ const useLocalStorage = (key) => {
 
     // TODO: add validations for key prop
     if (!item.hasOwnProperty("key")) {
+      item.key = -1;
     }
 
     setData((prev) => {
-      return !prev.find((x) => x.key === item.key) ? [...prev, item] : prev;
+      return item.key === -1 || prev.find((x) => x.key === item.key)
+        ? item
+        : [...prev, item];
     });
   };
 
