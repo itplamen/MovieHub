@@ -16,5 +16,8 @@
     "RATING": "rating",
     "SEARCH": "search"
   },
+  "RATING": {
+    "MIN": 1,
+    "MAX": 10
   }
 }

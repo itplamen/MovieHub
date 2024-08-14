@@ -1,6 +1,7 @@
 {
   "apiKey": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjY2OGUwNjFkOGEwZmI2MTM0MGQzMDg4YWE5MGU5YiIsIm5iZiI6MTcyMTExNDYyOS42ODI5MjEsInN1YiI6IjY2OTYxZThhODBkYmNjYzM3N2ZkOTdkMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DGxFruYYEWfNLV6jIbMKzI5LRwtuzHWv-8WsnuFMjcQ",
   "apiBaseUrl": "https://api.themoviedb.org/3/",
+  "guestSessionUrl": "/authentication/guest_session/new",
   "imgBaseUrl": "https://image.tmdb.org/t/p/",
   "videoBaseUrl": "https://www.youtube.com/watch?v=",
   "trendingsUrl": "/trending/{type}/week?page={page}",
@@ -9,6 +10,7 @@
   "genresUrl": "/genre/{type}/list",
   "discoverUrl": "/discover/{type}?include_adult=false&include_video=false&language=en-US&page={page}&sort_by={sortBy}&with_genres={genreId}&year={year}",
   "searchUrl": "/search/{type}?query={query}&include_adult=false&language=en-US&page={page}",
+  "addRatingUrl": "/{type}/{id}/rating?guest_session_id={sessionId}",
   "imageSizes": {
     "w500": "w500",
     "w92": "w92"
