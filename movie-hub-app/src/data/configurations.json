@@ -1,5 +1,5 @@
 {
-  "apiKey": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNjY2OGUwNjFkOGEwZmI2MTM0MGQzMDg4YWE5MGU5YiIsIm5iZiI6MTcyMTExNDYyOS42ODI5MjEsInN1YiI6IjY2OTYxZThhODBkYmNjYzM3N2ZkOTdkMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DGxFruYYEWfNLV6jIbMKzI5LRwtuzHWv-8WsnuFMjcQ",
+  "apiKey": "API_KEY_HERE",
   "apiBaseUrl": "https://api.themoviedb.org/3/",
   "guestSessionUrl": "/authentication/guest_session/new",
   "imgBaseUrl": "https://image.tmdb.org/t/p/",
