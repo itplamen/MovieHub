@@ -5,6 +5,7 @@ import config from "@/data/configurations.json";
 import Translation from "./translation/translation";
 import { Col, Row } from "react-bootstrap";
 import Favorites from "./favorites/favorites";
+import Votes from "./votes/votes";
 import Rating from "./rating/rating";
 
 const formatAmount = (amount) => {
@@ -27,6 +28,11 @@ const Details = ({ details, type }) => {
     )
   );
 
+  const posterImg = `${config.imgBaseUrl}/${config.imageSizes.w500}/${details.poster_path}`;
+  const movieYear = new Date(
+    details.release_date ?? details.first_air_date
+  ).getFullYear();
+
   const handleLanguageSelect = (iso_3166_1, iso_639_1) => {
     // TODO: add more validations
     const selected = details.translations.translations.find(
@@ -47,11 +53,7 @@ const Details = ({ details, type }) => {
       />
       <section className={styles.section} style={{ overflow: "hidden" }}>
         <div className={styles.poster}>
-          <img
-            alt="Poster Img"
-            className={styles.posterImg}
-            src={`${config.imgBaseUrl}/${config.imageSizes.w500}/${details.poster_path}`}
-          />
+          <img alt="Poster Img" className={styles.posterImg} src={posterImg} />
         </div>
         <div className={styles.info}>
           <div>
@@ -61,13 +63,7 @@ const Details = ({ details, type }) => {
                 : language.data.name
                 ? language.data.name
                 : details.original_title ?? details.name}
-              <span className={styles.year}>
-                (
-                {new Date(
-                  details.release_date ?? details.first_air_date
-                ).getFullYear()}
-                )
-              </span>
+              <span className={styles.year}>({movieYear})</span>
             </h2>
             <div className={styles.facts}>
               <span>
@@ -83,9 +79,20 @@ const Details = ({ details, type }) => {
           <div>
             <Row>
               <Col>
-                <Rating details={details} />
+                <Votes
+                  count={details.vote_count}
+                  average={details.vote_average}
+                />
               </Col>
               <Col>
+                <Rating
+                  movieType={type}
+                  movieId={details.id}
+                  movieTitle={`${
+                    details.original_title ?? details.name
+                  } (${movieYear})`}
+                  movieImg={posterImg}
+                />
                 <Favorites details={details} type={type} />
               </Col>
             </Row>

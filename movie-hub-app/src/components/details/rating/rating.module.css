@@ -1,0 +1,25 @@
+#RateModal {
+  text-align: center;
+}
+
+#RateBtn,
+#RateTitle {
+  width: 100%;
+}
+
+#ShowRateBtn {
+  margin-right: 1rem;
+}
+
+.btnHover {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+
+#SelectedRatingIcon {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
