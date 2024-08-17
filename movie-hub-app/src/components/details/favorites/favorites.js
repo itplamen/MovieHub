@@ -37,7 +37,7 @@ const Favorites = ({ details, type }) => {
       variant={`${isFavorie ? "" : "outline-"}primary`}
       onClick={isFavorie ? removeFavorite : addFavorite}
     >
-      <i class={`bi bi-heart${isFavorie ? "-fill" : ""}`}></i>{" "}
+      <i className={`bi bi-heart${isFavorie ? "-fill" : ""}`}></i>{" "}
       <span>{`${isFavorie ? "In" : "Add to"} Favorites`}</span>
     </Button>
   );

@@ -11,6 +11,7 @@ const Header = ({ text, breadcrumb }) => {
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             {breadcrumb.map((x, i) => (
               <Breadcrumb.Item
+                key={x.toLowerCase().replace(" ", "_")}
                 href={`/${x.toLowerCase()}`}
                 active={i === breadcrumb.length - 1}
               >

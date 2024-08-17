@@ -128,7 +128,7 @@ const useMovieRating = () => {
         sessionId: state.sessions.find((x) => !x.isExpired).key,
       });
       const rateMovie = async () => {
-        const result = await postData(url, { value: movieToRate.rating });
+        await postData(url, { value: movieToRate.rating });
       };
 
       rateMovie();
@@ -142,7 +142,7 @@ const useMovieRating = () => {
     }
   }, [state.readyToRate]);
 
-  const rate = (movie) => {
+  const addRating = (movie) => {
     if (
       movie.rating < constants.RATING.MIN ||
       movie.rating > constants.RATING.MAX
@@ -163,7 +163,7 @@ const useMovieRating = () => {
     });
   };
 
-  return rate;
+  return { ratedMovies: state?.movies, addRating };
 };
 
 export default useMovieRating;
