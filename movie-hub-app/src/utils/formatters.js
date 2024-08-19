@@ -27,7 +27,9 @@ export const formatUrl = (url, params) => {
       const urlParam = `{${key}}`;
       const urlValue = params[key];
 
-      result = result.replace(urlParam, urlValue);
+      if (urlParam && urlValue) {
+        result = result.replace(urlParam, urlValue);
+      }
     }
   }
 

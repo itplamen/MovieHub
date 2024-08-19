@@ -1,24 +1,20 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import config from "@/data/configurations.json";
+import constants from "@/data/constants.json";
 import { formatUrl } from "@/utils/formatters";
 import useApi from "./useApi";
 
 const useMovieDetails = (type, id) => {
-  const [details, setDetails] = useState();
   const { fetchData } = useApi();
+  const url = formatUrl(config.detailsUrl, { type, id });
+  const { data } = useQuery({
+    queryKey: [constants.QUERY_KEYS.MOVIE_DETAILS, type, id],
+    queryFn: () => fetchData(url),
+    enabled: id >= 0 && constants.MOVIE_TYPES.some((x) => x.type === type),
+    refetchOnWindowFocus: false,
+  });
 
-  useEffect(() => {
-    const fetchDetails = async () => {
-      const data = await fetchData(formatUrl(config.detailsUrl, { type, id }));
-      setDetails(data);
-    };
-
-    if (type && id) {
-      fetchDetails();
-    }
-  }, [type, id]);
-
-  return details;
+  return data;
 };
 
 export default useMovieDetails;

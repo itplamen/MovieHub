@@ -6,6 +6,9 @@
     },
     { "type": "tv", "description": "TV Shows" }
   ],
+  "QUERY_KEYS": {
+    "MOVIE_DETAILS": "movie-details"
+  },
   "HOME_MOVIES_COUNT": 12,
   "FILTER_MOVIE_YEAR_MIN": 1900,
   "MOVIES_LIST_PAGE_NUMBER": {

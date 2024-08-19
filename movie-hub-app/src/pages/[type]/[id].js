@@ -12,8 +12,8 @@ import Details from "@/components/details/details";
 const MovieInfo = () => {
   const router = useRouter();
   const { type, id } = router.query;
-
   const details = useMovieDetails(type, id);
+
   return (
     details && (
       <>
