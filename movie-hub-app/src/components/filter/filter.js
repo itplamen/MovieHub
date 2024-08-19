@@ -35,8 +35,7 @@ const Filter = ({ search }) => {
     sortBy: constants.SORT_BY_OPTIONS[0].value,
   });
 
-  const genres = constants.GENRES[state.movieType];
-  !genres.find((x) => x.id === NONE_VALUE.id) && genres.unshift(NONE_VALUE);
+  const genres = [{ ...NONE_VALUE }, ...constants.GENRES[state.movieType]];
 
   useEffect(() => {
     search({ ...state });
