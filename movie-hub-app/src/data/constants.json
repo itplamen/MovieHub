@@ -7,6 +7,7 @@
     { "type": "tv", "description": "TV Shows" }
   ],
   "HOME_MOVIES_COUNT": 12,
+  "FILTER_MOVIE_YEAR_MIN": 1900,
   "MOVIES_LIST_PAGE_NUMBER": {
     "MIN": 1,
     "MAX": 50
@@ -165,5 +166,39 @@
         "name": "Western"
       }
     ]
-  }
+  },
+  "SORT_BY_OPTIONS": [
+    {
+      "value": "popularity.desc",
+      "description": "Popularity Desc"
+    },
+    {
+      "value": "popularity.asc",
+      "description": "Popularity Asc"
+    },
+    {
+      "value": "primary_release_date.desc",
+      "description": "Release Date Desc"
+    },
+    {
+      "value": "primary_release_date.asc",
+      "description": "Release Date Asc"
+    },
+    {
+      "value": "vote_count.desc",
+      "description": "Vote Desc"
+    },
+    {
+      "value": "vote_count.asc",
+      "description": "Vote Asc"
+    },
+    {
+      "value": "original_title.asc",
+      "description": "Title (A-Z)"
+    },
+    {
+      "value": "original_title.desc",
+      "description": "Title (Z-A)"
+    }
+  ]
 }
