@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Container } from "react-bootstrap";
 import Header from "@/components/header/header";
-import GnereList from "@/components/genres/genreList";
+import GenreList from "@/components/genres/genreList";
 
 const Genres = () => {
   return (
@@ -14,7 +14,7 @@ const Genres = () => {
       </Head>
       <Container id="MainContainer">
         <Header text="Genres" breadcrumb={["Genres"]} />
-        <GnereList />
+        <GenreList />
       </Container>
     </>
   );

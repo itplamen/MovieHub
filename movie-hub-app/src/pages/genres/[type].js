@@ -3,7 +3,6 @@ import config from "@/data/configurations.json";
 import constants from "@/data/constants.json";
 import MovieCardList from "@/components/movieCard/movieCardList";
 import { formatDiscoverUrl } from "@/utils/formatters";
-import useGenres from "@/hooks/useGenres";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Header from "@/components/header/header";
@@ -13,7 +12,7 @@ const Genre = () => {
   const [url, setUrl] = useState();
   const router = useRouter();
   const { type } = router.query;
-  const genres = useGenres(constants.MOVIE_TYPES[0].type);
+  const genres = constants.GENRES[constants.MOVIE_TYPES[0].type];
 
   useEffect(() => {
     if (router.isReady && genres.length > 0) {

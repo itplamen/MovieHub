@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { Col, Row } from "react-bootstrap";
-import useGenres from "@/hooks/useGenres";
 import constants from "@/data/constants.json";
 import Genre from "./genre";
 
-const GnereList = () => {
-  const genres = useGenres(constants.MOVIE_TYPES[0].type);
+const GenreList = () => {
+  const genres = constants.GENRES[constants.MOVIE_TYPES[0].type];
 
   return (
     <Row>
@@ -20,4 +19,4 @@ const GnereList = () => {
   );
 };
 
-export default GnereList;
+export default GenreList;

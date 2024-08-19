@@ -2,7 +2,6 @@ import { useEffect, useReducer } from "react";
 import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
 import styles from "./filter.module.css";
 import constants from "@/data/constants.json";
-import useGenres from "@/hooks/useGenres";
 
 const NONE_VALUE = {
   id: "",
@@ -97,7 +96,7 @@ const Filter = ({ search }) => {
     sortBy: SORT_BY_OPTIONS[0].value,
   });
 
-  const genres = useGenres(state.movieType);
+  const genres = constants.GENRES[state.movieType];
   !genres.find((x) => x.id === NONE_VALUE.id) && genres.unshift(NONE_VALUE);
 
   const handleMovieTypeChange = (event) => {

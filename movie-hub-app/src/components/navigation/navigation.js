@@ -1,13 +1,13 @@
-import useGenres from "@/hooks/useGenres";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Col, Row } from "react-bootstrap";
+import constants from "@/data/constants.json";
 import SearchBar from "./searchBar/searchbar";
 
 const Navigation = () => {
-  const genres = useGenres("movie");
+  const genres = constants.GENRES[constants.MOVIE_TYPES[0].type];
 
   return (
     <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
