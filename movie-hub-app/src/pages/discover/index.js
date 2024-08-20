@@ -23,15 +23,7 @@ const Discover = () => {
   return (
     <>
       <Filter search={search} />
-      {type && url && (
-        <MovieCardList
-          type={type}
-          title={`Discover ${
-            constants.MOVIE_TYPES.find((x) => x.type === type).description
-          }`}
-          url={url}
-        />
-      )}
+      {type && url && <MovieCardList type={type} url={url} />}
     </>
   );
 };

@@ -32,11 +32,8 @@ const MainHomeMovies = () => {
               key={`${homeList.title.replace(" ", "_")}_${movieType.type}`}
               style={{ marginBottom: "20px" }}
             >
-              <MovieCardList
-                type={movieType.type}
-                title={`${homeList.title} ${movieType.description}`}
-                url={homeList.url}
-              />
+              <h4>{`${homeList.title} ${movieType.description}`}</h4>
+              <MovieCardList type={movieType.type} url={homeList.url} />
             </div>
           ))}
         </Tab>

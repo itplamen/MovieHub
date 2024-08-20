@@ -8,13 +8,10 @@ const Search = () => {
   const { query } = router.query;
 
   return (
-    <>
-      <MovieCardList
-        type={"movie"}
-        title={"Search"}
-        url={formatUrl(config.searchUrl, { query })}
-      />
-    </>
+    <MovieCardList
+      type={"movie"}
+      url={formatUrl(config.searchUrl, { query })}
+    />
   );
 };
 

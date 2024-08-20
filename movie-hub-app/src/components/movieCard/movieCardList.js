@@ -5,7 +5,7 @@ import useMovieList from "@/hooks/useMovieList";
 import MovieCard from "./movieCard";
 import Link from "next/link";
 
-const MovieCardList = ({ type, title, url }) => {
+const MovieCardList = ({ type, url }) => {
   const { movies, loadMore } = useMovieList(url, type);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
@@ -13,7 +13,6 @@ const MovieCardList = ({ type, title, url }) => {
   return (
     <>
       <Row>
-        {isHomePage && <h4>{title}</h4>}
         {(isHomePage
           ? movies.slice(0, constants.HOME_MOVIES_COUNT)
           : movies
