@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
-import { Button, Col, FloatingLabel, Form, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
+import Option from "./option/option";
 import styles from "./filter.module.css";
 import constants from "@/data/constants.json";
 import {
@@ -8,7 +9,6 @@ import {
   setYear,
   setSortOption,
 } from "@/reducers/filter/filterActions";
-
 import filterReducer from "@/reducers/filter/filterReducer";
 
 const NONE_VALUE = {
@@ -45,68 +45,58 @@ const Filter = ({ search }) => {
     <div id={styles.Filter}>
       <Row className="g-2">
         <Col md>
-          <FloatingLabel controlId="movieTypeSelect" label="Type">
-            <Form.Select
-              size="sm"
-              value={state.movieType}
-              aria-label="Movie Type Label"
-              onChange={(event) => dispatch(setMovieType(event.target.value))}
-            >
-              {constants.MOVIE_TYPES.map((x) => (
-                <option key={x.type} value={x.type}>
-                  {x.description}
-                </option>
-              ))}
-            </Form.Select>
-          </FloatingLabel>
+          <Option
+            label="Type"
+            value={state.movieType}
+            handleChange={(event) => dispatch(setMovieType(event.target.value))}
+          >
+            {constants.MOVIE_TYPES.map((x) => (
+              <option key={x.type} value={x.type}>
+                {x.description}
+              </option>
+            ))}
+          </Option>
         </Col>
         <Col md>
-          <FloatingLabel controlId="movieGenreSelect" label="Genre">
-            <Form.Select
-              size="sm"
-              value={state.genreId}
-              aria-label="Movie Genre Label"
-              onChange={(event) => dispatch(setGenre(event.target.value))}
-            >
-              {genres.map((x) => (
-                <option key={x.id} value={x.id}>
-                  {x.name}
-                </option>
-              ))}
-            </Form.Select>
-          </FloatingLabel>
+          <Option
+            label="Genre"
+            value={state.genreId}
+            handleChange={(event) => dispatch(setGenre(event.target.value))}
+          >
+            {genres.map((x) => (
+              <option key={x.id} value={x.id}>
+                {x.name}
+              </option>
+            ))}
+          </Option>
         </Col>
         <Col md>
-          <FloatingLabel controlId="movieYearSelect" label="Year">
-            <Form.Select
-              size="sm"
-              value={state.year}
-              aria-label="Movie Year Label"
-              onChange={(event) => dispatch(setYear(event.target.value))}
-            >
-              {getYears().map((x) => (
-                <option key={x} value={x}>
-                  {x}
-                </option>
-              ))}
-            </Form.Select>
-          </FloatingLabel>
+          <Option
+            label="Year"
+            value={state.year}
+            handleChange={(event) => dispatch(setYear(event.target.value))}
+          >
+            {getYears().map((x) => (
+              <option key={x} value={x}>
+                {x}
+              </option>
+            ))}
+          </Option>
         </Col>
         <Col md>
-          <FloatingLabel controlId="movieSortBySelect" label="Sort By">
-            <Form.Select
-              size="sm"
-              value={state.sortBy}
-              aria-label="Movie Sort By Label"
-              onChange={(event) => dispatch(setSortOption(event.target.value))}
-            >
-              {constants.SORT_BY_OPTIONS.map((x) => (
-                <option key={x.value} value={x.value}>
-                  {x.description}
-                </option>
-              ))}
-            </Form.Select>
-          </FloatingLabel>
+          <Option
+            label="Sort By"
+            value={state.sortBy}
+            handleChange={(event) =>
+              dispatch(setSortOption(event.target.value))
+            }
+          >
+            {constants.SORT_BY_OPTIONS.map((x) => (
+              <option key={x.value} value={x.value}>
+                {x.description}
+              </option>
+            ))}
+          </Option>
         </Col>
         <Col md>
           <Button
