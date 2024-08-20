@@ -4,9 +4,6 @@ import constants from "@/data/constants.json";
 import MovieCardList from "@/components/movieCard/movieCardList";
 import { formatDiscoverUrl } from "@/utils/formatters";
 import { useEffect, useState } from "react";
-import Head from "next/head";
-import Header from "@/components/header/header";
-import { Container } from "react-bootstrap";
 
 const Genre = () => {
   const [url, setUrl] = useState();
@@ -25,18 +22,7 @@ const Genre = () => {
 
   return (
     <>
-      <Head>
-        <title>Favorites</title>
-        <meta name="description" content="Favorites" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Container id="MainContainer">
-        {type && <Header text={type} breadcrumb={["genres", type]} />}
-        {url && (
-          <MovieCardList type={constants.MOVIE_TYPES[0].type} url={url} />
-        )}
-      </Container>
+      {url && <MovieCardList type={constants.MOVIE_TYPES[0].type} url={url} />}
     </>
   );
 };

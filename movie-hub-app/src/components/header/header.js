@@ -2,18 +2,20 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import styles from "./header.module.css";
 import { formatText } from "@/utils/formatters";
 
-const Header = ({ text, breadcrumb }) => {
+const Header = ({ text }) => {
+  const breadcrumbItems = text.split("/").filter((x) => x !== "");
+
   return (
     <>
       <div className={styles.description}>
-        {breadcrumb && breadcrumb.length > 0 && (
+        {breadcrumbItems && breadcrumbItems.length > 0 && (
           <Breadcrumb>
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-            {breadcrumb.map((x, i) => (
+            {breadcrumbItems.map((x, i) => (
               <Breadcrumb.Item
                 key={x.toLowerCase().replace(" ", "_")}
                 href={`/${x.toLowerCase()}`}
-                active={i === breadcrumb.length - 1}
+                active={i === breadcrumbItems.length - 1}
               >
                 {formatText(x)}
               </Breadcrumb.Item>
@@ -21,7 +23,7 @@ const Header = ({ text, breadcrumb }) => {
           </Breadcrumb>
         )}
 
-        <p>{formatText(text)}</p>
+        <p>{formatText(breadcrumbItems.at(-1))}</p>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { Row, Col, Container, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { useRouter } from "next/router";
 import constants from "@/data/constants.json";
 import useMovieList from "@/hooks/useMovieList";

@@ -1,6 +1,4 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
 import Header from "@/components/header/header";
 import useMovieDetails from "@/hooks/useMovieDetails";
 import Recommendations from "@/components/details/recommendations/recommendations";
@@ -17,30 +15,22 @@ const MovieInfo = () => {
   return (
     details && (
       <>
-        <Head>
-          <title>Details</title>
-          <meta name="description" content="" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-
-        <Container>
-          <Header
-            text={"Details"}
-            breadcrumb={[type, details.original_title ?? details.name]}
-          />
-          <Details details={details} type={type} />
-          <Cast members={details.credits.cast} />
-          <Reviews reviews={details.reviews.results} />
-          <Media videos={details.videos.results} />
-          <Recommendations
-            type={type}
-            recommendations={details.recommendations.results}
-          />
-        </Container>
+        <Header text={`${type}/${details.original_title ?? details.name}`} />
+        <Details details={details} type={type} />
+        <Cast members={details.credits.cast} />
+        <Reviews reviews={details.reviews.results} />
+        <Media videos={details.videos.results} />
+        <Recommendations
+          type={type}
+          recommendations={details.recommendations.results}
+        />
       </>
     )
   );
+};
+
+MovieInfo.getInitialProps = async () => {
+  return { hasCustomHeader: true, title: "Movie Details" };
 };
 
 export default MovieInfo;
