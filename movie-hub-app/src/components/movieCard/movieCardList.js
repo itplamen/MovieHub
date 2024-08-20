@@ -5,8 +5,8 @@ import useMovieList from "@/hooks/useMovieList";
 import MovieCard from "./movieCard";
 import Link from "next/link";
 
-const MovieCardList = ({ type, url }) => {
-  const { movies, loadMore } = useMovieList(url, type);
+const MovieCardList = ({ type, url, queryKey }) => {
+  const { movies, fetchNextPage } = useMovieList(type, url, queryKey);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
 
@@ -26,7 +26,7 @@ const MovieCardList = ({ type, url }) => {
       </Row>
       <div className="d-flex justify-content-center">
         {!isHomePage && (
-          <Button variant="outline-dark" onClick={loadMore}>
+          <Button variant="outline-dark" onClick={fetchNextPage}>
             Load More
           </Button>
         )}

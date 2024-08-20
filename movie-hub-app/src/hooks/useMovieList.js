@@ -1,36 +1,24 @@
-import { useEffect, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { formatUrl } from "@/utils/formatters";
 import useApi from "./useApi";
 
-const INITIAL_PAGE = 1;
-
-const useMovieList = (url, type) => {
-  const [page, setPage] = useState(INITIAL_PAGE);
-  const [movies, setMovies] = useState([]);
+const useMovieList = (type, url, queryKey) => {
   const { fetchData } = useApi();
 
-  useEffect(() => {
-    const fetchMovieList = async () => {
-      const data = await fetchData(formatUrl(url, { type, page }));
+  const { data, fetchNextPage } = useInfiniteQuery({
+    queryKey: [queryKey, type],
+    initialPageParam: 1,
+    gcTime: 1000 * 60 * 15,
+    staleTime: 1000 * 60 * 10,
+    queryFn: ({ pageParam }) =>
+      fetchData(formatUrl(url, { type, page: pageParam })),
+    getNextPageParam: (lastPage) => lastPage.page + 1,
+  });
 
-      if (page > INITIAL_PAGE) {
-        setMovies((prevData) => {
-          return [...prevData, ...data.results];
-        });
-      } else {
-        setMovies(data.results);
-      }
-    };
-
-    fetchMovieList();
-  }, [url, type, page]);
-
-  const loadMore = () => {
-    // TODO: page withing range
-    setPage((prev) => prev + 1);
+  return {
+    movies: data?.pages?.flatMap((x) => x.results) ?? [],
+    fetchNextPage,
   };
-
-  return { movies, loadMore };
 };
 
 export default useMovieList;

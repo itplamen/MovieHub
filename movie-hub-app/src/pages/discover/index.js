@@ -23,7 +23,13 @@ const Discover = () => {
   return (
     <>
       <Filter search={search} />
-      {type && url && <MovieCardList type={type} url={url} />}
+      {type && url && (
+        <MovieCardList
+          type={type}
+          url={url}
+          queryKey={constants.QUERY_KEYS.DISCOVER}
+        />
+      )}
     </>
   );
 };

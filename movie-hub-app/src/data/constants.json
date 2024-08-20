@@ -7,7 +7,14 @@
     { "type": "tv", "description": "TV Shows" }
   ],
   "QUERY_KEYS": {
-    "MOVIE_DETAILS": "movie-details"
+    "MOVIE_DETAILS": "movie-details",
+    "DISCOVER": "discover",
+    "SEARCH": "search",
+    "MOVIES_BY_GENRE": "movies-by-genre",
+    "HOME_LIST": {
+      "TRENDING": "trending",
+      "TOP_RATED": "top-rated"
+    }
   },
   "HOME_MOVIES_COUNT": 12,
   "FILTER_MOVIE_YEAR_MIN": 1900,

@@ -7,10 +7,12 @@ const moviesHomeList = [
   {
     title: "Trending",
     url: config.trendingsUrl,
+    key: constants.QUERY_KEYS.HOME_LIST.TRENDING,
   },
   {
     title: "Top Rated",
     url: config.topRatedUrl,
+    key: constants.QUERY_KEYS.HOME_LIST.TOP_RATED,
   },
 ];
 
@@ -33,7 +35,11 @@ const MainHomeMovies = () => {
               style={{ marginBottom: "20px" }}
             >
               <h4>{`${homeList.title} ${movieType.description}`}</h4>
-              <MovieCardList type={movieType.type} url={homeList.url} />
+              <MovieCardList
+                type={movieType.type}
+                url={homeList.url}
+                queryKey={homeList.key}
+              />
             </div>
           ))}
         </Tab>

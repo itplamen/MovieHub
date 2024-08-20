@@ -22,7 +22,13 @@ const Genre = () => {
 
   return (
     <>
-      {url && <MovieCardList type={constants.MOVIE_TYPES[0].type} url={url} />}
+      {url && (
+        <MovieCardList
+          type={constants.MOVIE_TYPES[0].type}
+          url={url}
+          queryKey={constants.QUERY_KEYS.MOVIES_BY_GENRE}
+        />
+      )}
     </>
   );
 };
