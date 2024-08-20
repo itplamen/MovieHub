@@ -21,15 +21,18 @@ export const setMovieType = (type) => {
 };
 
 export const setGenre = (id) => {
-  const found = constants.MOVIE_TYPES.some((movieType) =>
-    constants.GENRES[movieType.type].some((x) => x.id === parseInt(id, 10))
-  );
+  const isDefault = parseInt(id, 10) === constants.DEFAULT_FILTER_VALUE.id;
+  const found =
+    isDefault ||
+    constants.MOVIE_TYPES.some((movieType) =>
+      constants.GENRES[movieType.type].some((x) => x.id === parseInt(id, 10))
+    );
 
   if (found) {
     return {
       type: ACTIONS.SET_GENRE,
       payload: {
-        genreId: id,
+        genreId: isDefault ? null : id,
       },
     };
   }
@@ -38,14 +41,16 @@ export const setGenre = (id) => {
 };
 
 export const setYear = (year) => {
+  const isDefault = year === constants.DEFAULT_FILTER_VALUE.name;
   if (
-    year >= constants.FILTER_MOVIE_YEAR_MIN &&
-    year <= new Date().getFullYear()
+    isDefault ||
+    (year >= constants.FILTER_MOVIE_YEAR_MIN &&
+      year <= new Date().getFullYear())
   ) {
     return {
       type: ACTIONS.SET_YEAR,
       payload: {
-        year: year,
+        year: isDefault ? null : year,
       },
     };
   }

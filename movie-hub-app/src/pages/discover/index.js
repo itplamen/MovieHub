@@ -1,35 +1,39 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import constants from "@/data/constants.json";
 import config from "@/data/configurations.json";
 import MovieCardList from "@/components/movieCard/movieCardList";
 import Filter from "@/components/filter/filter";
 import { formatDiscoverUrl } from "@/utils/formatters";
+import filterReducer from "@/reducers/filter/filterReducer";
 
 const Discover = () => {
-  const [url, setUrl] = useState();
-  const [type, setType] = useState(constants.MOVIE_TYPES[0].type);
+  const [state, dispatch] = useReducer(filterReducer, {
+    movieType: constants.MOVIE_TYPES[0].type,
+    genreId: null,
+    year: null,
+    sortBy: constants.SORT_BY_OPTIONS[0].value,
+  });
 
-  const search = ({ movieType, genreId, year, sortBy }) => {
-    const discoverUrl = formatDiscoverUrl(config.discoverUrl, {
-      genreId,
-      year,
-      sortBy,
-    });
-
-    setUrl(discoverUrl);
-    setType(movieType);
-  };
+  const url = formatDiscoverUrl(config.discoverUrl, {
+    genreId: state.genreId,
+    year: state.year,
+    sortBy: state.sortBy,
+  });
 
   return (
     <>
-      <Filter search={search} />
-      {type && url && (
-        <MovieCardList
-          type={type}
-          url={url}
-          queryKey={constants.QUERY_KEYS.DISCOVER}
-        />
-      )}
+      <Filter
+        movieType={state.movieType}
+        genreId={state.genreId}
+        year={state.year}
+        sortBy={state.sortBy}
+        handleSearch={dispatch}
+      />
+      <MovieCardList
+        type={state.movieType}
+        url={url}
+        queryKey={[constants.QUERY_KEYS.DISCOVER, ...Object.values(state)]}
+      />
     </>
   );
 };

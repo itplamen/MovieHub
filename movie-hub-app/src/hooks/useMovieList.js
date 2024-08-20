@@ -6,7 +6,7 @@ const useMovieList = (type, url, queryKey) => {
   const { fetchData } = useApi();
 
   const { data, fetchNextPage } = useInfiniteQuery({
-    queryKey: [queryKey, type],
+    queryKey: [queryKey],
     initialPageParam: 1,
     gcTime: 1000 * 60 * 15,
     staleTime: 1000 * 60 * 10,

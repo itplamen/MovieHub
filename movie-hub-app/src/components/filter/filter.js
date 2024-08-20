@@ -1,5 +1,4 @@
-import { useEffect, useReducer } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Option from "./option/option";
 import styles from "./filter.module.css";
 import constants from "@/data/constants.json";
@@ -9,12 +8,6 @@ import {
   setYear,
   setSortOption,
 } from "@/reducers/filter/filterActions";
-import filterReducer from "@/reducers/filter/filterReducer";
-
-const NONE_VALUE = {
-  id: "",
-  name: "None",
-};
 
 const getYears = () => {
   const currentYear = new Date().getFullYear();
@@ -22,24 +15,16 @@ const getYears = () => {
     { length: currentYear - constants.FILTER_MOVIE_YEAR_MIN + 1 },
     (_, index) => currentYear - index
   );
-  years.unshift(NONE_VALUE.name);
+  years.unshift("All");
 
   return years;
 };
 
-const Filter = ({ search }) => {
-  const [state, dispatch] = useReducer(filterReducer, {
-    movieType: constants.MOVIE_TYPES[0].type,
-    genreId: NONE_VALUE.id,
-    year: NONE_VALUE.id,
-    sortBy: constants.SORT_BY_OPTIONS[0].value,
-  });
-
-  const genres = [{ ...NONE_VALUE }, ...constants.GENRES[state.movieType]];
-
-  useEffect(() => {
-    search({ ...state });
-  }, []);
+const Filter = ({ movieType, genreId, year, sortBy, handleSearch }) => {
+  const genres = [
+    { ...constants.DEFAULT_FILTER_VALUE },
+    ...constants.GENRES[movieType],
+  ];
 
   return (
     <div id={styles.Filter}>
@@ -47,8 +32,10 @@ const Filter = ({ search }) => {
         <Col md>
           <Option
             label="Type"
-            value={state.movieType}
-            handleChange={(event) => dispatch(setMovieType(event.target.value))}
+            value={movieType}
+            handleChange={(event) =>
+              handleSearch(setMovieType(event.target.value))
+            }
           >
             {constants.MOVIE_TYPES.map((x) => (
               <option key={x.type} value={x.type}>
@@ -60,8 +47,8 @@ const Filter = ({ search }) => {
         <Col md>
           <Option
             label="Genre"
-            value={state.genreId}
-            handleChange={(event) => dispatch(setGenre(event.target.value))}
+            value={genreId}
+            handleChange={(event) => handleSearch(setGenre(event.target.value))}
           >
             {genres.map((x) => (
               <option key={x.id} value={x.id}>
@@ -73,8 +60,8 @@ const Filter = ({ search }) => {
         <Col md>
           <Option
             label="Year"
-            value={state.year}
-            handleChange={(event) => dispatch(setYear(event.target.value))}
+            value={year}
+            handleChange={(event) => handleSearch(setYear(event.target.value))}
           >
             {getYears().map((x) => (
               <option key={x} value={x}>
@@ -86,9 +73,9 @@ const Filter = ({ search }) => {
         <Col md>
           <Option
             label="Sort By"
-            value={state.sortBy}
+            value={sortBy}
             handleChange={(event) =>
-              dispatch(setSortOption(event.target.value))
+              handleSearch(setSortOption(event.target.value))
             }
           >
             {constants.SORT_BY_OPTIONS.map((x) => (
@@ -97,18 +84,6 @@ const Filter = ({ search }) => {
               </option>
             ))}
           </Option>
-        </Col>
-        <Col md>
-          <Button
-            variant="warning"
-            onClick={() =>
-              search({
-                ...state,
-              })
-            }
-          >
-            Filter
-          </Button>
         </Col>
       </Row>
     </div>
