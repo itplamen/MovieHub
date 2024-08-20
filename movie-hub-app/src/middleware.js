@@ -4,10 +4,10 @@ export function middleware(request) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/genre")) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/genres", request.url));
   }
 
-  if (pathname.startsWith("/movie")) {
+  if (pathname.startsWith("/movie") || pathname.startsWith("/tv")) {
     return NextResponse.redirect(new URL("/discover", request.url));
   }
 
@@ -15,5 +15,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/genre", "/movie"],
+  matcher: ["/genre", "/movie", "/tv"],
 };

@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Head>
-        <title>{isHomePage ? "Movie Hub" : formatText(title)}</title>
+        <title>{isHomePage ? "Movie Hub" : formatText(title ?? "")}</title>
         <meta
           name="description"
           content="Discover the latest releases, watch trailers, and explore a vast database of films, actors, and genres."
