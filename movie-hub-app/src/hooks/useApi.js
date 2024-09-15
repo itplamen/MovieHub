@@ -26,9 +26,10 @@ const useApi = () => {
       if (url && data) {
         const response = await fetch(`${config.apiBaseUrl}/${url}`, {
           method: "POST",
-          body: JSON.stringify(data).slice(1, -1),
+          body: JSON.stringify(data),
           headers: {
             accept: "application/json",
+            "Content-Type": "application/json;charset=utf-8",
             Authorization: `Bearer ${config.apiKey}`,
           },
         });

@@ -38,7 +38,7 @@ const MainHomeMovies = () => {
               <MovieCardList
                 type={movieType.type}
                 url={homeList.url}
-                queryKey={homeList.key}
+                queryKey={`${homeList.key}_${movieType.type}`}
               />
             </div>
           ))}
