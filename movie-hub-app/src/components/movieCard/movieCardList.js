@@ -6,7 +6,7 @@ import MovieCard from "./movieCard";
 import Link from "next/link";
 
 const MovieCardList = ({ type, url, queryKey }) => {
-  const { movies, fetchNextPage } = useMovieList(type, url, queryKey);
+  const { movies, total, fetchNextPage } = useMovieList(type, url, queryKey);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
 
@@ -25,7 +25,7 @@ const MovieCardList = ({ type, url, queryKey }) => {
         ))}
       </Row>
       <div className="d-flex justify-content-center">
-        {!isHomePage && (
+        {!isHomePage && movies.length < total && (
           <Button variant="outline-dark" onClick={fetchNextPage}>
             Load More
           </Button>

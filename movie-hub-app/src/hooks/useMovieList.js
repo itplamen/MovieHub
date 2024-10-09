@@ -17,6 +17,7 @@ const useMovieList = (type, url, queryKey) => {
 
   return {
     movies: data?.pages?.flatMap((x) => x.results) ?? [],
+    total: data?.pages?.[0]?.total_results ?? 0,
     fetchNextPage,
   };
 };

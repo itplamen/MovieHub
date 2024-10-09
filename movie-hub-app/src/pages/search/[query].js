@@ -9,11 +9,13 @@ const Search = () => {
   const { query } = router.query;
 
   return (
-    <MovieCardList
-      type={"movie"}
-      url={formatUrl(config.searchUrl, { query })}
-      queryKey={constants.QUERY_KEYS.SEARCH}
-    />
+    query && (
+      <MovieCardList
+        type={"movie"}
+        url={formatUrl(config.searchUrl, { query })}
+        queryKey={`${constants.QUERY_KEYS.SEARCH}_${query}`}
+      />
+    )
   );
 };
 

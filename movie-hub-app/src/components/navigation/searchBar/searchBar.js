@@ -11,7 +11,6 @@ import {
 import useLocalStorage from "@/hooks/useLocalStorage";
 import React, { useState } from "react";
 import styles from "./searchBar.module.css";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import constants from "@/data/constants.json";
 
@@ -70,6 +69,7 @@ const SearchBar = () => {
             aria-label="Search"
             aria-describedby="Search"
             value={searchValue}
+            maxLength={20}
             onChange={(event) => setSearchValue(event.target.value)}
           />
           <Button variant="warning" onClick={handleSearch}>
@@ -78,7 +78,7 @@ const SearchBar = () => {
         </InputGroup>
       </Dropdown.Toggle>
       {data && data.length > 0 && (
-        <Dropdown.Menu as={CustomMenu}>
+        <Dropdown.Menu as={CustomMenu} style={{ width: "20rem" }}>
           <Dropdown.Item disabled eventKey={-1} id={styles.RecentSearchesText}>
             Recent Searches
           </Dropdown.Item>
@@ -87,7 +87,9 @@ const SearchBar = () => {
             <Dropdown.Item key={x.tag} eventKey={i} active={false}>
               <Row>
                 <Col md={10}>
-                  <Link href={`/search/${x.tag}`}>{x.tag}</Link>
+                  <div onClick={() => router.push(`/search/${x.tag}`)}>
+                    {x.tag}
+                  </div>
                 </Col>
                 <Col md={2}>
                   <CloseButton
