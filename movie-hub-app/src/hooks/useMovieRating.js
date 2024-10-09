@@ -7,13 +7,14 @@ import { formatUrl } from "@/utils/formatters";
 import {
   setInitialData,
   addMovieRating,
-  addNewSession,
-  setReadyToRate,
+  getNewSession,
+  saveNewSession,
 } from "@/reducers/rating/ratingActions";
 import ratingReducer from "@/reducers/rating/ratingReducer";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-const isSessionExpired = (sessions) => {
-  if (sessions && sessions.length > 0) {
+const isSessionExpired = (session) => {
+  if (session) {
     const now = new Date();
     let utcNow = Date.UTC(
       now.getUTCFullYear(),
@@ -24,7 +25,7 @@ const isSessionExpired = (sessions) => {
       now.getUTCSeconds()
     );
 
-    const expDate = new Date(sessions.find((x) => !x.isExpired).expDate);
+    const expDate = new Date(session.expDate);
     const expDateUtc = Date.UTC(
       expDate.getUTCFullYear(),
       expDate.getUTCMonth(),
@@ -41,56 +42,84 @@ const isSessionExpired = (sessions) => {
 };
 
 const useMovieRating = () => {
-  const [state, dispatch] = useReducer(ratingReducer, {});
   const { fetchData, postData } = useApi();
+  const [state, dispatch] = useReducer(ratingReducer, {});
   const { data, saveData } = useLocalStorage(constants.STORAGE_KEYS.RATING);
 
-  useEffect(() => {
-    if (data && !state.sessions && !state.movies) {
-      dispatch(setInitialData(data.sessions, data.movies));
-    }
-  }, [data]);
+  const { data: newSession, isSuccess } = useQuery({
+    queryKey: ["NewSession"],
+    gcTime: 0,
+    queryFn: () => fetchData(config.guestSessionUrl),
+    refetchOnWindowFocus: false,
+    enabled: !!state?.session?.isExpired,
+  });
 
-  useEffect(() => {
-    if (state.getNewSession) {
-      const fetchSession = async () => {
-        const result = await fetchData(config.guestSessionUrl);
-        dispatch(
-          addNewSession(
-            state.sessions,
-            result.guest_session_id,
-            result.expires_at
-          )
-        );
-      };
-
-      fetchSession();
-    }
-  }, [state.getNewSession]);
-
-  useEffect(() => {
-    if (state.readyToRate) {
-      saveData({
-        key: -1,
-        sessions: [...state.sessions],
-        movies: [...state.movies],
-      });
-
+  const { mutateAsync } = useMutation({
+    mutationFn: () => {
       const movieToRate = state.movies.at(-1);
       const url = formatUrl(config.addRatingUrl, {
         type: movieToRate.type,
         id: movieToRate.id,
-        sessionId: state.sessions.find((x) => !x.isExpired).key,
+        sessionId: state?.session?.id,
       });
-      const rateMovie = async () => {
-        await postData(url, { value: movieToRate.rating });
-      };
+      return postData(url, { value: movieToRate.rating });
+    },
+    onSuccess: () => {
+      saveData({
+        movies: [...state.movies],
+        tag: "movies",
+      });
+    },
+  });
 
-      rateMovie();
+  useEffect(() => {
+    const session = data?.find((x) => x.tag === "session")?.session;
+    const movies = data?.find((x) => x.tag === "movies")?.movies;
 
-      dispatch(setReadyToRate(false));
+    if (session && movies && !state.session && !state.movies) {
+      dispatch(setInitialData(session, movies));
     }
-  }, [state.readyToRate]);
+  }, [data?.length]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        saveNewSession(newSession.guest_session_id, newSession.expires_at)
+      );
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (
+      state?.session?.id !== data?.find((x) => x.tag === "session")?.session?.id
+    ) {
+      saveData({
+        session: { ...state.session },
+        tag: "session",
+      });
+    }
+  }, [state?.session?.id]);
+
+  useEffect(() => {
+    const rateMove = async () => {
+      await mutateAsync();
+    };
+
+    if (state?.movies?.length > 0 && !state?.session?.isExpired) {
+      const prevRating =
+        data
+          ?.find((x) => x.tag === "movies")
+          ?.movies?.find((x) => x.id === state.movies.at(-1).id)?.rating ?? 0;
+
+      if (prevRating !== state.movies.at(-1).rating) {
+        rateMove();
+      }
+    }
+  }, [
+    state?.movies?.at(-1)?.id,
+    state?.movies?.at(-1)?.rating,
+    state?.session?.isExpired,
+  ]);
 
   const addRating = (movie) => {
     if (
@@ -98,12 +127,13 @@ const useMovieRating = () => {
       movie.rating > constants.RATING.MAX
     ) {
       throw new Error(
-        `Rating '${movie.rating}' is outside of the range [${constants.RATING.MIN} - ${constants.RATING.MAX}]`
+        `Rating '${movie.rating}' value is outside of the range [${constants.RATING.MIN} - ${constants.RATING.MAX}]`
       );
     }
 
-    const isExpired = isSessionExpired(state.sessions);
-    dispatch(addMovieRating(movie, isExpired));
+    const isExpired = isSessionExpired(state.session);
+    dispatch(getNewSession(isExpired));
+    dispatch(addMovieRating(movie));
   };
 
   return { ratedMovies: state?.movies, addRating };

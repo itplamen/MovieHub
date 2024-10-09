@@ -1,51 +1,54 @@
 import { useEffect, useState } from "react";
 
 const useLocalStorage = (key) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState({ updated: "", items: [] });
 
   const getData = (key) => {
     try {
       const data = localStorage.getItem(key);
-      return data ? JSON.parse(data) : [];
+      return JSON.parse(data);
     } catch (error) {
-      console.log(error);
-      return [];
+      console.log(error.message);
+      throw new Error(error.message);
     }
   };
 
   const saveData = (item) => {
-    if (!item) {
-      return;
+    if (item && item.hasOwnProperty("tag")) {
+      setData((prev) => {
+        return {
+          updated: new Date().toGMTString(),
+          items: [...prev.items.filter((x) => x.tag !== item.tag), item],
+        };
+      });
+    } else {
+      throw new Error("Could not save item");
     }
-
-    // TODO: add validations for key prop
-    if (!item.hasOwnProperty("key")) {
-      item.key = -1;
-    }
-
-    setData((prev) => {
-      return item.key === -1 || prev.find((x) => x.key === item.key)
-        ? item
-        : [...prev, item];
-    });
   };
 
   const removeData = (item) => {
     setData((prev) => {
-      return [...prev.filter((x) => x.key !== item.key)];
+      return {
+        updated: new Date().toGMTString(),
+        items: [...prev.items.filter((x) => x.tag !== item.tag)],
+      };
     });
   };
 
   useEffect(() => {
     const initialData = getData(key);
-    setData(initialData);
+    if (initialData) {
+      setData(initialData);
+    }
   }, [key]);
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(data));
-  }, [data]);
+    if (data.updated) {
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+  }, [data.updated]);
 
-  return { data, saveData, removeData };
+  return { data: data.items, saveData, removeData };
 };
 
 export default useLocalStorage;

@@ -57,7 +57,7 @@ const SearchBar = () => {
   );
 
   const handleSearch = () => {
-    saveData({ value: searchValue });
+    saveData({ tag: searchValue });
     router.push(`/search/${searchValue}`);
   };
 
@@ -84,16 +84,16 @@ const SearchBar = () => {
           </Dropdown.Item>
           <Dropdown.Divider />
           {data.map((x, i) => (
-            <Dropdown.Item eventKey={i} active={false}>
+            <Dropdown.Item key={x.tag} eventKey={i} active={false}>
               <Row>
                 <Col md={10}>
-                  <Link href={`/search/${x.value}`}>{x.value}</Link>
+                  <Link href={`/search/${x.tag}`}>{x.tag}</Link>
                 </Col>
                 <Col md={2}>
                   <CloseButton
                     className="btn btn-dark"
-                    value={x.value}
-                    onClick={(event) => removeData(event.target.value)}
+                    value={x.tag}
+                    onClick={(event) => removeData({ tag: event.target.value })}
                   />
                 </Col>
               </Row>

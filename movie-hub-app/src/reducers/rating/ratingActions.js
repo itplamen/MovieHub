@@ -1,58 +1,49 @@
 export const ACTIONS = {
   SET_INITIAL_DATA: "set_initial_data",
   ADD_MOVIE_RATING: "add_movie_rating",
-  ADD_NEW_SESSION: "add_new_session",
-  SET_READY_TO_RATE: "set_ready_to_rate",
+  GET_NEW_SESSION: "get_new_session",
+  SAVE_NEW_SESSION: "save_new_session",
 };
 
-export const setInitialData = (sessions, movies) => {
+export const setInitialData = (session, movies) => {
   return {
     type: ACTIONS.SET_INITIAL_DATA,
     payload: {
-      sessions: sessions ?? [],
+      session: session ?? {},
       movies: movies ?? [],
-      getNewSession: false,
-      readyToRate: false,
     },
   };
 };
 
-export const addMovieRating = (movie, isExpired) => {
+export const addMovieRating = (movie) => {
   return {
     type: ACTIONS.ADD_MOVIE_RATING,
     payload: {
       movie: movie,
-      getNewSession: isExpired,
-      readyToRate: !isExpired,
     },
   };
 };
 
-export const addNewSession = (sessions, sessionId, expDate) => {
+export const getNewSession = (isExpired) => {
   return {
-    type: ACTIONS.ADD_NEW_SESSION,
+    type: ACTIONS.GET_NEW_SESSION,
     payload: {
-      readyToRate: true,
-      sessions: [
-        ...sessions.map((x) => ({
-          ...x,
-          isExpired: true,
-        })),
-        {
-          isExpired: false,
-          key: sessionId,
-          expDate: expDate,
-        },
-      ],
+      session: {
+        isExpired,
+      },
     },
   };
 };
 
-export const setReadyToRate = (readyToRate) => {
+export const saveNewSession = (id, expDate) => {
   return {
-    type: ACTIONS.SET_READY_TO_RATE,
+    type: ACTIONS.SAVE_NEW_SESSION,
     payload: {
-      readyToRate: readyToRate,
+      session: {
+        id,
+        expDate,
+        isExpired: false,
+      },
     },
   };
 };

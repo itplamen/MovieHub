@@ -6,21 +6,26 @@ const ratingReducer = (state, action) => {
       return { ...action.payload };
     case ACTIONS.ADD_MOVIE_RATING:
       return {
-        sessions: [...state.sessions],
-        movies: [...state.movies, action.payload.movie],
-        getNewSession: action.payload.getNewSession,
-        readyToRate: action.payload.readyToRate,
+        ...state,
+        movies: state?.movies
+          ? [
+              ...state.movies.filter((x) => x.id !== action.payload.movie.id),
+              action.payload.movie,
+            ]
+          : [action.payload.movie],
       };
-    case ACTIONS.ADD_NEW_SESSION:
+    case ACTIONS.GET_NEW_SESSION:
       return {
         ...state,
-        readyToRate: action.payload.readyToRate,
-        sessions: [...action.payload.sessions],
+        session: {
+          ...state.session,
+          isExpired: action.payload.session.isExpired,
+        },
       };
-    case ACTIONS.SET_READY_TO_RATE:
+    case ACTIONS.SAVE_NEW_SESSION:
       return {
         ...state,
-        readyToRate: action.payload.readyToRate,
+        session: { ...action.payload.session },
       };
     default:
       throw new Error("Unexpected action type");

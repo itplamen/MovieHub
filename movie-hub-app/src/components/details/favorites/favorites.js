@@ -12,13 +12,13 @@ const Favorites = ({ details, type }) => {
 
   useEffect(() => {
     setIsFavorie(
-      data && data.length > 0 ? data.some((x) => x.key === details.id) : false
+      data && data.length > 0 ? data.some((x) => x.tag === details.id) : false
     );
   }, [data]);
 
   const addFavorite = () => {
     saveData({
-      key: details.id,
+      tag: details.id,
       value: {
         type: type,
         posterImg: `${config.imgBaseUrl}/${config.imageSizes.w500}/${details.poster_path}`,
@@ -28,7 +28,7 @@ const Favorites = ({ details, type }) => {
   };
 
   const removeFavorite = () => {
-    removeData({ key: details.id });
+    removeData({ tag: details.id });
     setIsFavorie(false);
   };
 
