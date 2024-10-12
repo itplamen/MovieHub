@@ -12,8 +12,8 @@ const Favorites = () => {
       <Row>
         {data &&
           data.map((x) => (
-            <Col key={x.key} xs={12} sm={6} md={4} lg={3} xl={2}>
-              <Link href={`/${x.value.type}/${x.key}`}>
+            <Col key={x.tag} xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Link href={`/${x.value.type}/${x.tag}`}>
                 <MovieCard posterImg={x.value.posterImg} />
               </Link>
             </Col>
