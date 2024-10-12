@@ -12,11 +12,7 @@ const Layout = ({ children }) => {
   const isHomePage = pathName && pathName === "/";
   const title =
     children?.props?.title ??
-    (pathName &&
-      pathName
-        .split("/")
-        .filter((x) => x !== "")
-        .at(-1));
+    (pathName && pathName.split("/").filter((x) => x !== ""));
 
   return (
     <>

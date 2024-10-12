@@ -13,10 +13,23 @@ const SEARCH_PARAMS = [
   },
 ];
 
-export const formatText = (text) => {
+const formatTextToUper = (text) => {
   return text.length === 2
     ? text.toUpperCase()
     : text.charAt(0).toUpperCase() + text.slice(1);
+};
+
+export const formatText = (value) => {
+  if (Array.isArray(value)) {
+    const result = [];
+    value.forEach((element, index) => {
+      result.push(formatTextToUper(element));
+    });
+
+    return result.join(": ");
+  } else {
+    return formatTextToUper(value);
+  }
 };
 
 export const formatUrl = (url, params) => {

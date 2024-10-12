@@ -51,17 +51,35 @@ const CustomMenu = React.forwardRef(
 const SearchBar = () => {
   const router = useRouter();
   const [searchValue, setSearchValue] = useState("");
+  const [isVisible, setIsVisible] = useState();
   const { data, saveData, removeData } = useLocalStorage(
     constants.STORAGE_KEYS.SEARCH
   );
 
   const handleSearch = () => {
+    setSearchValue("");
+    setIsVisible(false);
     saveData({ tag: searchValue });
     router.push(`/search/${searchValue}`);
   };
 
+  const handleKeyDown = (event) => {
+    switch (event.key) {
+      case "Enter":
+        handleSearch();
+        break;
+      case "Escape":
+        handleToggle(false);
+        break;
+    }
+  };
+
+  const handleToggle = (show) => {
+    setIsVisible(show);
+  };
+
   return (
-    <Dropdown>
+    <Dropdown id={styles.SearchBar} show={isVisible} onToggle={handleToggle}>
       <Dropdown.Toggle as={CustomToggle}>
         <InputGroup style={{ width: "20rem" }}>
           <Form.Control
@@ -71,6 +89,7 @@ const SearchBar = () => {
             value={searchValue}
             maxLength={20}
             onChange={(event) => setSearchValue(event.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <Button variant="warning" onClick={handleSearch}>
             <i className="bi bi-search"></i>

@@ -1,3 +1,7 @@
+#SearchBar {
+  margin-left: 36rem;
+}
+
 #RecentSearches {
   max-height: 20rem;
   overflow-x: hidden;
