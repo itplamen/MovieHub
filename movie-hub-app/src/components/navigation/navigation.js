@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { Col, Row } from "react-bootstrap";
 import constants from "@/data/constants.json";
 import SearchBar from "./searchBar/searchbar";
+import Image from "next/image";
 
 const Navigation = () => {
   const genres = constants.GENRES[constants.MOVIE_TYPES[0].type];
@@ -12,7 +13,10 @@ const Navigation = () => {
   return (
     <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">MovieHub</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Image src="/logo.png" width={30} height={30} alt="Logo" />{" "}
+          <span>MovieHub</span>
+        </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
