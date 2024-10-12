@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import { Container } from "react-bootstrap";
 import styles from "./layout.module.css";
 import Header from "../header/header";
+import Footer from "../footer/footer";
 import Navigation from "../navigation/navigation";
 import { formatText } from "@/utils/formatters";
 
@@ -29,12 +30,15 @@ const Layout = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navigation />
-      <Container id={styles.MainContainer}>
-        {!isHomePage && pathName && !children?.props?.hasCustomHeader && (
-          <Header text={pathName} />
-        )}
-        {children}
-      </Container>
+      <div id={styles.PageContainer}>
+        <Container id={styles.MainContainer}>
+          {!isHomePage && pathName && !children?.props?.hasCustomHeader && (
+            <Header text={pathName} />
+          )}
+          {children}
+        </Container>
+        <Footer />
+      </div>
     </>
   );
 };
