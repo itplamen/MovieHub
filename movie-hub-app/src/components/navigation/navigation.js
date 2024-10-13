@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Col, Row } from "react-bootstrap";
 import constants from "@/data/constants.json";
-import SearchBar from "./searchBar/searchbar";
+import SearchBar from "./searchBar/searchBar";
 import Image from "next/image";
 
 const Navigation = () => {
