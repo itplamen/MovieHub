@@ -1,5 +1,4 @@
 {
-  "apiKey": "API_KEY_HERE",
   "apiBaseUrl": "https://api.themoviedb.org/3/",
   "guestSessionUrl": "/authentication/guest_session/new",
   "imgBaseUrl": "https://image.tmdb.org/t/p/",

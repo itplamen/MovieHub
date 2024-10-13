@@ -8,7 +8,7 @@ const useApi = () => {
           method: "GET",
           headers: {
             accept: "application/json",
-            Authorization: `Bearer ${config.apiKey}`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
           },
         });
 
